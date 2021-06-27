@@ -3,10 +3,10 @@ require('dotenv').config();
 
 //mysql
 const sql = mysql.createConnection({
-    host    :'localhost',
-    user    :'root',
+    host    : process.env.HOST,
+    user    : process.env.USER,
     password: '',
-    database:'dbgroupomania'
+    database: process.env.DATA
 });
 
 //connection base de donnée
