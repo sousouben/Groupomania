@@ -2,12 +2,13 @@ const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const path = require('path');
-const sequlize = require('sequelize');
 require('dotenv').config();
-const db = require('./database_connect');
 
 
 const app = express();
+
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 
 
 //CORS

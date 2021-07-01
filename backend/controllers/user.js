@@ -1,19 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../database_connect');
+const models = require('../models');
 require('dotenv').config();
-const passwordValidator = require('password-validator');
-const { Connection } = require('mongoose');
 
-
-const schema = new passwordValidator();
-schema
-.is().min(6)
-.is().max(50)
-.has().uppercase()
-.has().lowercase()
-.has().digits(1)
-.has().not().spaces();
 
 //inscription
 exports.signup = (req,res,next)=>{

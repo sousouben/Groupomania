@@ -1,5 +1,5 @@
 //controllers posts et commentaires
-const db = require('../database_connect');//connection base de donnée
+const models = require('../models');
 
 //Récupérer la liste de tous les posts
 exports.getAllPosts = (req, res, next)=>{
