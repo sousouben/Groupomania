@@ -1,5 +1,5 @@
-//controllers posts et commentaires
 const models = require('../models');
+const fs = require('fs');
 
 //Récupérer la liste de tous les posts
 exports.getAllPosts = (req, res, next)=>{
