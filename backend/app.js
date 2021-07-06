@@ -7,11 +7,12 @@ require('dotenv').config();
 
 const app = express();
 
-const userRoutes = require('./routes/user');
-const postRoutes = require('./routes/post');
+const userRoutes = require('./routes/users');
+const postRoutes = require('./routes/posts');
+const commentsRoutes = require('./routes/comments');
 
 
-//CORS
+//Cross origin
 app.use((req, res, next) => { //autorisation d acces à l'API
     res.setHeader('Access-Control-Allow-Origin', '*'); //accéder à API depuis le port 4200  
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); 
@@ -22,10 +23,12 @@ app.use((req, res, next) => { //autorisation d acces à l'API
 
 app.use(bodyParser.json());
 app.use(helmet());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //routes
-app.use('/api/auth', userRoutes);
-app.use('/api/posts', postRoutes);
+app.use('/api/users/', usersRoutes);
+app.use('/api/posts/', postsRoutes);
+app.use('/api/posts/', commentsRoutes);
 
 
 module.exports = app;

@@ -1,20 +1,19 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const models = require('../models');
 
-module.exports = (req, res, next)=>{
+module.exports = async (req, res, next)=>{
     try{
-        const token = req.headers.autorization.split('')[1];//on prend le token de la req
-        const decodedToken = jwt.verify(token, process.env.TOKEN);//on décode grace au token secret
-        const userId = decodedToken.userId;//on compare avec celui de la req
-        if(req.body.userId && req.body.userId !== userId){
-            throw ' Invalid user ID';
-        }else{
-            next();//on passe au middleware suivant s'il est juste
-        }     
+        const token = req.headers.autorization.split('')[1];
+        const decodedToken = jwt.verify(token, process.env.TOKEN);
+        const user = await models.User.finOne( { where: {id:decodedToken.id} });//on compare avec celui de la req
+        if(!user){
+            throw new Error('invalid');
+        }
+        req.user = user;
+        next();
 
-    }catch{
-        res.status(401).json({
-            error: new Error('Invalid request!')
-        });
+    }catch(err){
+        res.status(401).json({error: 'Invalid request!'});
     }
 };
