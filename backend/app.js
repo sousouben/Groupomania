@@ -26,8 +26,8 @@ app.use(helmet());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //routes
-app.use('/api/users/', usersRoutes);
-app.use('/api/posts/', postsRoutes);
+app.use('/api/users/', userRoutes);
+app.use('/api/posts/', postRoutes);
 app.use('/api/posts/', commentsRoutes);
 
 

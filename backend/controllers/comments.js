@@ -1,31 +1,24 @@
 const models = require('../models');
 const fs = require('fs');
 
-exports.createComment = async(req,res)=>{
-    try{
+exports.createComment = (req,res)=>{
         let comments = req.body.comments;
-        const newCom = await models.Comment.create({
+        const newCom = models.Comment.create({
             comments: comments,
-            userId: req.user.id,
+            userId: req.body.userId,
             postId: req.params.id
-        });
-        if (newCom){
+        }).then(newCom =>{
             res.status(201).json({ message: 'Votre commentaire a été envoyé',newCom});
-        }else{
-            throw new Error('Désolé, quelque chose s\'est mal passé');
-        }
-
-    }catch(error){
-        res.status(400).json({
-            error: error.message
-        });
-    }
+        }).catch(error =>{
+            res.status(500).json({
+                error
+            })
+        })    
 };
 
-exports.getComments = async(req,res)=>{
-    try{
+/**exports.getComments = (req,res)=>{
         const order = req.query.order;
-        const comments = await models.Comment.findAll({
+        const comments = models.Comment.findAll({
             attributes:[
                 "id",
                 "userId",
@@ -49,4 +42,4 @@ exports.getComments = async(req,res)=>{
             error: error.message
         });
     }
-};
+};*/

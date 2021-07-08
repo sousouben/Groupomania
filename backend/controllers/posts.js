@@ -51,7 +51,7 @@ exports.getAllPosts = async(req, res)=>{
             include: [
                 {
                     model : models.User,
-                    attributes: ['pseudo', 'isAdmin'],
+                    attributes: ['pseudo', 'email'],
                 },
             ],
         });
