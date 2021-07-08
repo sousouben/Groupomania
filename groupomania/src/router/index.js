@@ -5,7 +5,6 @@ import Login from '../components/Login.vue';
 import Signup from '../components/Signup.vue';
 import NewPost from '../components/NewPost.vue';
 import AllPost from '../components/AllPost.vue';
-import Profile from '../components/Profile.vue';
 
 const routes = [
   {
@@ -35,15 +34,9 @@ const routes = [
     component: NewPost
   },
   {
-    path: '/getPosts',
+    path: '/',
     name: 'getPosts',
     component: AllPost
-
-  },
-  {
-    path: '/user/:id',
-    name: 'Profile',
-    component: Profile
 
   },
   {
