@@ -11,12 +11,10 @@ exports.signup = (req,res,next)=>{
     let password = req.body.password;
 
     if(email == null || pseudo == null || password == null){
-        res.status(400).json({ error:'tous les champs sont obligatoire!'});
+        res.status(400).json({ error:'tous les champs sont obligatoires!'});
     }
     models.User.findOne({
-        where: {
-            email: email
-        }
+        where: { email: email }
     })
     .then(user =>{
         if(!user){
@@ -30,50 +28,85 @@ exports.signup = (req,res,next)=>{
                 }).then( newUser=>{
                     res.status(201).json({ message: 'Utilisteur enregistré',newUser});
                 }).catch(error =>{
-                    res.status(500).json({
-                        error
-                    })
-                })    
-            })
+                    res.status(500).json({ error });
+                });    
+            });
         }
-
+        else{
+            res.status(404).json({ error: 'utilisateur existant!'});
+        }
     })
     .catch(error=>{
         res.status(500).json({ error });
-    })
-
-    
+    })    
 };
 
 //Connection
-exports.login = (req,res,next)=>{
-    try{
+exports.login = (req,res)=>{
+    let pseudo = res.body.pseudo;
+    let password = res.body.password;
 
-    }catch(error){
-        res.status(400).json({
-            error: error.message
-        });
+    if(pseudo == null || password == null){
+        res.status(400).json({ error: 'paramètre manquant!'});
     }
+    models.User.findOne({
+        where: { pseudo: pseudo}
+    })
+    .then(user=>{
+        if(user){
+            bcrypt.compare(password, user.password, (errComparePassword, resComparePassword)=>{
+                if(resComparPassword){
+                    res.status(200).json({
+                        userId: user.id,
+                        status: user.status
+                    })
+                }else{
+                    res.status(403).json({ error:'password invalid'});
+                };
+            })
+        }else{
+            res.status(404).json({error: 'cet utilisateur n\'existe pas'})
+        }
+    }).catch(error=>{ res.status(500).json({error})})
 };
 
-//user profile
-exports.userProfile =async (req,res)=>{
-    try{
-
-    }catch(error){
-        res.status(400).json({
-            error: error.message
-        });
-    }
+//profil user
+exports.userProfile = (req,res)=>{
+    let id = rq.body.id;
+    models.User.findOne({ 
+        where: { id: id }
+    })
+    .then(user=> res.status(200).json(user))
+    .catch(error=> res.status(500).json(error))    
 };
 
-//delete user
-exports.deleteProfile = (req, res, next)=>{
-    try{
+//suppression user
+exports.deleteProfile = (req, res)=>{
+    let userId = req.body.userId;
 
-    }catch(error){
-        res.status(400).json({
-            error: error.message
-        });
+    if(userId !=null){
+        models.User.finOne({
+            where: { id: userId}
+        })
+        .then(user =>{
+            if(user !=null){
+                models.Post.destroy({
+                    where: { userId: user.id }
+                })
+                .then(()=>{
+                    console.log('Tous les posts de cet utilisateur ont été supprimé!');
+                    models.User.destroy({
+                        where: { id: user.id }
+                    })
+                    .then(()=> res.end())
+                    .catch(error => console.log(error))        
+                    
+                }).catch(error => res.status(500).json(error))
+            }else{
+                res.status(401).json({ error: 'cet utilisateur n\'existe pas '})
+            }
+        })
+    }else{
+        res.status(500).json({ error: 'Impossible de supprimer ce compte!'})
     }
-};
+    };

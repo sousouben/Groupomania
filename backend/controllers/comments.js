@@ -16,9 +16,9 @@ exports.createComment = (req,res)=>{
         })    
 };
 
-/**exports.getComments = (req,res)=>{
-        const order = req.query.order;
-        const comments = models.Comment.findAll({
+exports.getComments = (req,res)=>{
+    let comments = req.body.comments;
+    const allCom = models.Comment.findAll({
             attributes:[
                 "id",
                 "userId",
@@ -30,16 +30,13 @@ exports.createComment = (req,res)=>{
             order: [order != null ? order.split(':') : ['createdAt', 'DESC']],
             where: { postId: req.params.id},
             include: [{ model: models.User,attributes: ['pseudo']}]
-        }),
-        if(comments){
-            res.status(200).send({ message:comments });
-        }else{
-            throw new Error('Il n\'y a pas de commentaire');
-        }
-
-    }catch(error){
-        res.status(400).json({
-            error: error.message
-        });
-    }
-};*/
+        })
+        .then(allCom=>{
+            res.status(200).send({ message:'les commentaires sont envoyés'});
+        }).catch(error =>{
+            res.status(500).json({
+                error
+            })
+        })       
+       
+};
