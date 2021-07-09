@@ -70,9 +70,9 @@ exports.login = (req,res)=>{
     }).catch(error=>{ res.status(500).json({error})})
 };
 
-//profil user
+//profil user (myprofile)
 exports.userProfile = (req,res)=>{
-    let id = rq.body.id;
+    let id = req.body.id;
     models.User.findOne({ 
         where: { id: id }
     })

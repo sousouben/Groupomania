@@ -8,6 +8,14 @@
 </template>
 
 <style lang="scss">
+html{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+}
+
 #app {
   font-family: 'Patrick Hand', cursive;
   -webkit-font-smoothing: antialiased;
@@ -22,6 +30,7 @@
   a {
     font-weight: bold;
     color: blueviolet;
+    text-decoration: none;    
 
     &.router-link-exact-active {
       color: blue;
