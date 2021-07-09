@@ -17,3 +17,23 @@
     </v-layout>
   </v-container>
 </template>
+<script>
+export default {
+  name: 'About'
+}
+
+</script>
+
+<style lang="scss" scoped>
+h1{
+  color:blueviolet;
+}
+li{
+  list-style: none;  
+  
+  }
+*{
+  font-size: 1.5rem;
+  color: blue;
+}
+</style>
