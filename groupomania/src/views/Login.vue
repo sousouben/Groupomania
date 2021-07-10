@@ -15,20 +15,20 @@
           </div>
         </div>
       </div>
-      <form class="sign-up" @click="switchToCreateAccount()">
-        <h2 v-if="mode == 'create'">Créer une connexion</h2>
-        <div v-if="mode == 'create'">Utilisez votre email pour l'inscription</div>
-        <input v-model="pseudo" type="pseudo" placeholder="Pseudo" />
-        <input v-model="email" type="email" placeholder="Email" />
-        <input v-model="password" type="password" placeholder="Mot de passe" />
-        <button class="button" :class="{'button--desabled' : !validatedFields()}" v-if="mode == 'create'">Inscription</button>
+      <form class="sign-up">
+        <h2>Créer une connexion</h2>
+        <div>Utilisez votre email pour l'inscription</div>
+        <input type="pseudo" placeholder="Pseudo" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Mot de passe" />
+        <button>Inscription</button>
       </form>
-      <form class="sign-in" @click="switchToLogin()">
-        <h2 v-if="mode == 'login'">Connexion</h2>
-        <div v-if="mode == 'login'">Utiliser votre compte</div>
-        <input v-model="email" type="email" placeholder="Email" />
-        <input v-model="password" type="password" placeholder="Mot de passe" />        
-        <button class="button button--disabled" v-if="mode == 'login'" >Connexion</button>
+      <form class="sign-in">
+        <h2>Connexion</h2>
+        <div>Utiliser votre compte</div>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Mot de passe" />        
+        <button>Connexion</button>
       </form>
     </div>
   </article>
@@ -40,39 +40,10 @@
     data: () => {
       return {
         signUp: false,
-        mode:'login',
-        email:'',
-        pseudo:'',
-        password:'',
+        
       }
     },
-    computed: {
-      validatedFields: function(){
-        if(this.mode == 'create'){
-          if(this.email != '' && this.pseudo != '' && this.password !=''){
-            return true;
-          }else{
-            return false;
-          }
-        }else{
-          if(this.email != '' && this.password !=''){
-            return true;
-          }else{
-            return false;
-          }
-        }
-
-      }
-    },
-    methods:{
-      switchToCreateAccount: function(){
-        this.mode = 'create';
-      },
-      switchToLogin: function(){
-        this.mode = 'Login';
-      }
-
-    }
+    
   }
 </script>
 
