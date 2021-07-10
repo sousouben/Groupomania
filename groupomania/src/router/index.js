@@ -19,13 +19,7 @@ const routes = [
     name: 'Login',
     component: Login
 
-  },
-  {
-    path: '/myprofile',
-    name: 'Profile',
-    component: () => import('../views/Profile.vue')
-
-  },
+  },  
   {
     path: '/:pathMatch(.*)',
     name: 'NotFound',
