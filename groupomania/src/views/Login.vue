@@ -15,36 +15,95 @@
           </div>
         </div>
       </div>
+
       <form class="sign-up">
         <h2>Créer une connexion</h2>
         <div>Utilisez votre email pour l'inscription</div>
-        <input type="pseudo" placeholder="Pseudo" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Mot de passe" />
-        <button>Inscription</button>
+        <input id="inputPseudo" v-model="dataSignup.pseudo" type="pseudo" placeholder="Pseudo" />
+        <input id="inputEmail" v-model="dataSignup.email" type="email" placeholder="Email" />
+        <input id="inputPassword"         v-model="dataSignup.password" type="password" placeholder="Mot de passe" />
+        <button @click.prevent="sendSignup">Inscription</button>
       </form>
+
       <form class="sign-in">
         <h2>Connexion</h2>
         <div>Utiliser votre compte</div>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Mot de passe" />        
-        <button>Connexion</button>
+        <input id="inputEmail" v-model="dataLogin.email" type="email" placeholder="Email" />
+        <input id="inputPassword" v-model="dataLogin.password" type="password" placeholder="Mot de passe" />        
+        <button @click.prevent="logIn">Connexion</button>
       </form>
+
     </div>
   </article>
 </template>
 
 <script>
+import axios from 'axios';
+import { mapState } from 'vuex';
+
   export default {
       name: 'Login',
     data: () => {
       return {
         signUp: false,
-        
+        dataLogin: {
+          email: null,
+          password: null
+        },
+        dataSignup: {
+        pseudo: null,
+        email: null,
+        password: null
+      },
+        msg:""        
+      };
+    },
+    computed: {
+      ...mapState(["user"])
+    },
+    methods: {
+      logIn() {
+      if (       
+        this.dataLogin.pseudo !== null ||
+        this.dataLogin.password !== null
+      ) {
+        axios
+          .post("http://localhost:3000/api/user/login", this.dataLogin)
+          .then(response => {
+            localStorage.setItem('token',response.data.token)
+            location.replace(location.origin)
+          })
+          .catch(error => console.log(error));
+      } else {
+        console.log("sa n'a pas fonctionné !");
       }
     },
-    
+    sendSignup() {
+      const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/
+      const regexEmail = /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
+      const pseudoRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
+      if (
+        (this.dataSignup.email !== null ||
+        this.dataSignup.pseudo !== null ||
+        this.dataSignup.password !== null) &&
+        (regexPassword.test(this.dataSignup.password) && regexEmail.test(this.dataSignup.email) && pseudoRegex.test(this.dataSignup.pseudo))
+      ) {
+        axios
+          .post("http://localhost:3000/api/user/signup", this.dataSignup)
+          .then(response => {
+            console.log(response);
+            //Réinitialisation
+            this.dataSignup.email = null;
+            this.dataSignup.pseudo = null;
+            this.dataSignup.password = null;
+          })
+          .catch(error => console.log(error));
+      } else {
+        alert("Un problème est survenue!");
+      }
+    }
   }
+};
 </script>
 
 <style lang="scss" scoped>

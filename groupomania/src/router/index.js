@@ -1,7 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import NotFound from '../views/NotFound.vue';
-import Login from '../views/Login.vue';
 
 const routes = [
   {
@@ -17,13 +15,12 @@ const routes = [
   {
     path:'/login',
     name: 'Login',
-    component: Login
-
+    component: () => import('../views/Login.vue')
   },  
   {
     path: '/:pathMatch(.*)',
     name: 'NotFound',
-    component: NotFound,
+    component: () => import('../views/NotFound/.vue'),
     meta:{
       title: '404 Not Found'
     }
