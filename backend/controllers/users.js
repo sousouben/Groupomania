@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
+const validInput = require('../utils/ValidInput')
 require('dotenv').config();
 
 
@@ -13,32 +14,46 @@ exports.signup = (req,res,next)=>{
     if(email == null || pseudo == null || password == null){
         res.status(400).json({ error:'tous les champs sont obligatoires!'});
     }
-    models.User.findOne({
-        where: { email: email }
-    })
-    .then(user =>{
-        if(!user){
-            bcrypt.hash(password,10 , function(error, success ){
-                const newUser = models.User.create({
-                    email: email,
-                    pseudo: pseudo,
-                    password: success,
-                    status: 0
+    // verification des inputs
+    let emailok = validInput.validEmail(email);
+    console.log(emailok);
+    let passwordok = validInput.validPassword(passwordok);
+    console.log(password);
+    let pseudook = 
+    validInput.validPseudo(pseudook);
+    console.log(pseudook);
 
-                }).then( newUser=>{
-                    res.status(201).json({ message: 'Utilisteur enregistré',newUser});
-                }).catch(error =>{
-                    res.status(500).json({ error });
-                });    
-            });
-        }
-        else{
-            res.status(404).json({ error: 'utilisateur existant!'});
-        }
-    })
-    .catch(error=>{
-        res.status(500).json({ error });
-    })    
+    if(emailok == true && passwordok == true && pseudook == true){
+        models.User.findOne({
+            where: { email: email }
+        })
+        .then(user =>{
+            if(!user){
+                bcrypt.hash(password,10 , function(error, success ){
+                    const newUser = models.User.create({
+                        email: email,
+                        pseudo: pseudo,
+                        password: success,
+                        status: 0
+    
+                    }).then( newUser=>{
+                        res.status(201).json({ message: 'Utilisteur enregistré',newUser});
+                    }).catch(error =>{
+                        res.status(500).json({ error });
+                    });    
+                });
+            }
+            else{
+                res.status(404).json({ error: 'utilisateur existant!'});
+            }
+        })
+        .catch(error=>{
+            res.status(500).json({ error });
+        })    
+    }else {
+        console.log('les champs ne sont pas valide')
+    }
+    
 };
 
 //Connection
@@ -53,21 +68,26 @@ exports.login = (req,res)=>{
         where: { email: email}
     })
     .then(user=>{
-        if(user){
-            bcrypt.compare(password, user.password, (errComparePassword, resComparePassword)=>{
-                if(resComparPassword){
-                    res.status(200).json({
-                        userId: user.id,
-                        status: user.status
-                    })
-                }else{
-                    res.status(403).json({ error:'password invalid'});
-                };
-            })
-        }else{
-            res.status(404).json({error: 'cet utilisateur n\'existe pas'})
+        console.log(user);
+        if(!user){
+            return res.status(401).json({ error: 'Utilisateur non trouvé !'});
         }
-    }).catch(error=>{ res.status(500).json({error})})
+        bcrypt.compare(req.body.password, user.password)
+        .then(valid =>{
+            if(!valid){
+                return res.status(401).json({ error: 'Mot de passe incorrect!'});
+            }
+            res.status(200).json({
+                userId: user.id,
+                token: jwt.sign(
+                    { userId: user.id },
+                    process.env.TOKEN,
+                    { expiresIn: '24h' }
+                  ),                
+            });
+    }).catch(error=>{ res.status(500).json({error})});
+})
+.catch(error => res.status(500).json({ error }));
 };
 
 //profil user (myprofile)
@@ -80,6 +100,41 @@ exports.userProfile = (req,res)=>{
     .catch(error=> res.status(500).json(error))    
 };
 
+//modification profil user
+exports.changeProfile = (req,res)=>{
+    let userId = req.body.userId;
+    const newPassword = req.body.newPassword;
+    console.log(newPassword);
+
+    //verification regex newpassword
+    console.log('admin', validInput.validPassword(newPassword));
+    if(validInput.validPassword(newPassword)){
+        //vérifie que le password est différent de l'ancien
+        models.User.finOne({
+            where: { id:userId }
+        }).then(user => {
+            console.log('Profil trouvé', user)
+            bcrypt.compare(newPassword, user.password, (errComparePassword, resComparePassword) => {
+                //bcrypt renvoit resComparePassword si les password sont identiques 
+                if (resComparePassword) {
+                    res.status(406).json({ error: 'Vous avez entré le même mot de passe!' })
+                } else {
+                    bcrypt.hash(newPassword, 10, function (err, bcryptNewPassword) {
+                        models.User.update(
+                            { password: bcryptNewPassword },
+                            { where: { id: user.id } }
+                        )
+                            .then(() => res.status(201).json({ confirmation: 'mot de passe modifié avec succès!!' }))
+                            .catch(err => res.status(500).json(err))
+                    })
+                }
+            })
+        })
+        .catch(err => json(err))
+} else {
+    res.status(406).json({ error: 'mot de passe non valide !' })
+}
+}
 //suppression user
 exports.deleteProfile = (req, res)=>{
     let userId = req.body.userId;
