@@ -43,14 +43,14 @@ exports.signup = (req,res,next)=>{
 
 //Connection
 exports.login = (req,res)=>{
-    let pseudo = res.body.pseudo;
+    let email = res.body.email;
     let password = res.body.password;
 
-    if(pseudo == null || password == null){
+    if(email == null || password == null){
         res.status(400).json({ error: 'paramètre manquant!'});
     }
     models.User.findOne({
-        where: { pseudo: pseudo}
+        where: { email: email}
     })
     .then(user=>{
         if(user){
@@ -83,6 +83,7 @@ exports.userProfile = (req,res)=>{
 //suppression user
 exports.deleteProfile = (req, res)=>{
     let userId = req.body.userId;
+    let comments = req.body.comments;
 
     if(userId !=null){
         models.User.finOne({
@@ -90,6 +91,14 @@ exports.deleteProfile = (req, res)=>{
         })
         .then(user =>{
             if(user !=null){
+                models.Comment.destroy({
+                    where: { comment: comments }
+                }).then(()=>{
+                    comnsole.log('Tous les commentaires de cet utilisateur ont été supprimé!');
+                    models.Comment.destroy({
+                        where: { comment: comments }
+                    })
+                })
                 models.Post.destroy({
                     where: { userId: user.id }
                 })
@@ -98,7 +107,7 @@ exports.deleteProfile = (req, res)=>{
                     models.User.destroy({
                         where: { id: user.id }
                     })
-                    .then(()=> res.end())
+                    .then(() => res.status(200).json({message: 'profile supprimer!'}))
                     .catch(error => console.log(error))        
                     
                 }).catch(error => res.status(500).json(error))
