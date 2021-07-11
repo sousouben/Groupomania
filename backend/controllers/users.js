@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
-const validInput = require('../utils/ValidInput')
+const validInput = require('../utils/ValidInput');
 require('dotenv').config();
 
 
 //inscription
-exports.signup = (req,res,next)=>{
+exports.signup = (req,res)=>{
     let email = req.body.email;
     let pseudo =  req.body.pseudo;
     let password = req.body.password;
@@ -149,11 +149,11 @@ exports.deleteProfile = (req, res)=>{
                 models.Comment.destroy({
                     where: { comment: comments }
                 }).then(()=>{
-                    comnsole.log('Tous les commentaires de cet utilisateur ont été supprimé!');
+                    console.log('Tous les commentaires de cet utilisateur ont été supprimé!');
                     models.Comment.destroy({
                         where: { comment: comments }
                     })
-                })
+                });
                 models.Post.destroy({
                     where: { userId: user.id }
                 })

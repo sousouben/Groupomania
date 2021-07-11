@@ -6,6 +6,7 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 //const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
+require('dotenv').config();
 
 let sequelize;
   sequelize = new Sequelize(process.env.DATA, process.env.USER,'', {host: process.env.HOST, dialect: 'mysql'});
