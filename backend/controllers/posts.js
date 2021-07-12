@@ -76,7 +76,7 @@ exports.updatePost = (req, res)=>{
             }).then(()=> res.end())
             .catch(error=> res.status(500).json(error))
         }else{
-            res.status(401).json({error: 'utilisateurnon autorisé à modifier ce post'})
+            res.status(401).json({error: 'utilisateur non autorisé à modifier ce post'})
         }
     })
     .catch(error=> res.status(500).json(error));

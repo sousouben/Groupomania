@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
-const validInput = require('../utils/ValidInput');
+const validInput = require('../validate/ValidInput');
 require('dotenv').config();
 
 
