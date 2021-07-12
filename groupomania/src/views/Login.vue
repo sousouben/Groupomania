@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import { mapState } from 'vuex';
 
   export default {
@@ -67,13 +67,7 @@ import { mapState } from 'vuex';
         this.dataLogin.pseudo !== null ||
         this.dataLogin.password !== null
       ) {
-        axios
-          .post("http://localhost:3000/api/user/login", this.dataLogin)
-          .then(response => {
-            localStorage.setItem('token',response.data.token)
-            location.replace(location.origin)
-          })
-          .catch(error => console.log(error));
+        console.log('succes!');
       } else {
         console.log("sa n'a pas fonctionné !");
       }
@@ -88,16 +82,7 @@ import { mapState } from 'vuex';
         this.dataSignup.password !== null) &&
         (regexPassword.test(this.dataSignup.password) && regexEmail.test(this.dataSignup.email) && pseudoRegex.test(this.dataSignup.pseudo))
       ) {
-        axios
-          .post("http://localhost:3000/api/user/signup", this.dataSignup)
-          .then(response => {
-            console.log(response);
-            //Réinitialisation
-            this.dataSignup.email = null;
-            this.dataSignup.pseudo = null;
-            this.dataSignup.password = null;
-          })
-          .catch(error => console.log(error));
+        console.log('succes!')
       } else {
         alert("Un problème est survenue!");
       }

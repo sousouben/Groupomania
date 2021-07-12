@@ -1,11 +1,13 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () =>import('../views/Home.vue')
   },
   {
     path: '/about',
@@ -20,16 +22,15 @@ const routes = [
   {
     path: '/:pathMatch(.*)',
     name: 'NotFound',
-    component: () => import('../views/NotFound/.vue'),
+    component: () => import('../views/NotFound.vue'),
     meta:{
       title: '404 Not Found'
     }
   }
 ]
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
+const router = new VueRouter({
+routes  
 })
 
 export default router
