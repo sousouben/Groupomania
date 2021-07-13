@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
-const validInput = require('../validate/ValidInput');
+const validInput = require('../utils/ValidInput');
 require('dotenv').config();
 
 
@@ -18,7 +18,7 @@ exports.signup = (req,res)=>{
     let emailok = validInput.validEmail(email);
     console.log(emailok);
     let passwordok = validInput.validPassword(passwordok);
-    console.log(password);
+    console.log(passwordok);
     let pseudook = 
     validInput.validPseudo(pseudook);
     console.log(pseudook);

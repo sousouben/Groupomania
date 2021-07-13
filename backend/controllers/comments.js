@@ -37,6 +37,21 @@ exports.getComments = (req,res)=>{
             res.status(500).json({
                 error
             })
-        })       
-       
+        })    
 };
+
+exports.updateComment = (req, res)=>{
+    if(!req.body.content){
+        return res.status(400).json({ error: "Aucun contenu"});
+    }
+    models.update({ content: req.body.content },{ where: {id: req.body.id}})
+    .then(()=> res.status(200).json({ message: "Commentaire modifié"})
+    .catch(error=> res.status(500).json({error})))
+};
+
+exports.deleteComment = (req, res)=>{
+    models.destroy({
+        where: { id:req.body.id }
+    })
+    .then(()=> res.status(200).json({ message: "Commentaire supprimé"}))
+    .catch(error => res.status(500).json({ error }))};

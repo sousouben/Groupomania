@@ -10,7 +10,7 @@ module.exports = {
         return regexPassword.test(value)
     },
     validPseudo: function (value) {
-        const pseudoRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
-        return pseudoRegex.test(value)
+        const RgexPseudo = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
+        return RgexPseudo.test(value)
     }
 }

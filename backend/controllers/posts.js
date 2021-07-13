@@ -37,6 +37,14 @@ exports.createPost = (req, res)=>{
         }
     }).catch(error=> res.status(500).json(error));
 }
+
+//post d'une personne
+exports.getPostById = (req, res)=>{
+    models.Post.findOne({ where: {id:req.params.id}})
+    .then(post => res.status(200).json({ post}))
+    .catch(error => res.status(500).json({ error }));
+}
+
     
 //Récupérer la liste de tous les posts
 exports.getAllPosts = (req, res)=>{
