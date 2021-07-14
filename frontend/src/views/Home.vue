@@ -20,5 +20,14 @@ export default {
 h1{
   color:blueviolet;
 }
+li{
+  list-style: none;  
+  
+  }
+*{
+  font-size: 1.5rem;
+  color: blue;
+}
+
 
 </style>
