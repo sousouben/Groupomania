@@ -4,91 +4,46 @@
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-left">
-            <h2>Content de vous revoir</h2>
-            <p>Veuillez vous connecter avec vos infos personnelles</p>
-            <button class="invert" id="signIn" @click="signUp = !signUp">S'identifier</button>
+            <h2>Welcome Back!</h2>
+            <p>Please login with your personal info</p>
+            <button class="invert" id="signIn" @click="signUp = !signUp">Sign In</button>
           </div>
           <div class="overlay-right">
-            <h2>Bonjour</h2>
-            <p>Veuillez saisir vos données personnelles</p>
-            <button class="invert" id="signUp" @click="signUp = !signUp">S'inscrire</button>
+            <h2>Hello, Friend!</h2>
+            <p>Please enter your personal details</p>
+            <button class="invert" id="signUp" @click="signUp = !signUp">Sign Up</button>
           </div>
         </div>
       </div>
-
-      <form class="sign-up">
-        <h2>Créer une connexion</h2>
-        <div>Utilisez votre email pour l'inscription</div>
-        <input id="inputPseudo" v-model="dataSignup.pseudo" type="pseudo" placeholder="Pseudo" />
-        <input id="inputEmail" v-model="dataSignup.email" type="email" placeholder="Email" />
-        <input id="inputPassword"         v-model="dataSignup.password" type="password" placeholder="Mot de passe" />
-        <button @click.prevent="sendSignup">Inscription</button>
+      <form class="sign-up" action="#">
+        <h2>Create login</h2>
+        <div>Use your email for registration</div>
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button>Sign Up</button>
       </form>
-
-      <form class="sign-in">
-        <h2>Connexion</h2>
-        <div>Utiliser votre compte</div>
-        <input id="inputEmail" v-model="dataLogin.email" type="email" placeholder="Email" />
-        <input id="inputPassword" v-model="dataLogin.password" type="password" placeholder="Mot de passe" />        
-        <button @click.prevent="logIn">Connexion</button>
+      <form class="sign-in" action="#">
+        <h2>Sign In</h2>
+        <div>Use your account</div>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <a href="#">Forgot your password?</a>
+        <button>Sign Up</button>
       </form>
-
     </div>
   </article>
 </template>
 
 <script>
-
-import { mapState } from 'vuex';
-
-  export default {
+   export default {
       name: 'Login',
     data: () => {
       return {
-        signUp: false,
-        dataLogin: {
-          email: null,
-          password: null
-        },
-        dataSignup: {
-        pseudo: null,
-        email: null,
-        password: null
-      },
-        msg:""        
-      };
-    },
-    computed: {
-      ...mapState(["user"])
-    },
-    methods: {
-      logIn() {
-      if (       
-        this.dataLogin.pseudo !== null ||
-        this.dataLogin.password !== null
-      ) {
-        console.log('succes!');
-      } else {
-        console.log("sa n'a pas fonctionné !");
-      }
-    },
-    sendSignup() {
-      const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/
-      const regexEmail = /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
-      const pseudoRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
-      if (
-        (this.dataSignup.email !== null ||
-        this.dataSignup.pseudo !== null ||
-        this.dataSignup.password !== null) &&
-        (regexPassword.test(this.dataSignup.password) && regexEmail.test(this.dataSignup.email) && pseudoRegex.test(this.dataSignup.pseudo))
-      ) {
-        console.log('succes!')
-      } else {
-        alert("Un problème est survenue!");
+        signUp: false
       }
     }
   }
-};
 </script>
 
 <style lang="scss" scoped>

@@ -91,7 +91,7 @@ exports.login = (req,res)=>{
 };
 
 //profil user (myprofile)
-exports.userProfile = (req,res)=>{
+exports.userProfil = (req,res)=>{
     let id = req.body.id;
     models.User.findOne({ 
         where: { id: id }
@@ -101,7 +101,7 @@ exports.userProfile = (req,res)=>{
 };
 
 //modification profil user
-exports.changeProfile = (req,res)=>{
+exports.changeProfil = (req,res)=>{
     let userId = req.body.userId;
     const newPassword = req.body.newPassword;
     console.log(newPassword);
@@ -136,7 +136,7 @@ exports.changeProfile = (req,res)=>{
 }
 }
 //suppression user
-exports.deleteProfile = (req, res)=>{
+exports.deleteProfil = (req, res)=>{
     let userId = req.body.userId;
     let comments = req.body.comments;
 
