@@ -4,32 +4,31 @@
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-left">
-            <h2>Welcome Back!</h2>
-            <p>Please login with your personal info</p>
-            <button class="invert" id="signIn" @click="signUp = !signUp">Sign In</button>
+            <h2>Content de vous revoir!</h2>
+            <p>Veuillez vous connecter avec vos infos personnelles</p>
+            <button class="invert" id="signIn" @click="signUp = !signUp">Se connecter</button>
           </div>
           <div class="overlay-right">
-            <h2>Hello, Friend!</h2>
-            <p>Please enter your personal details</p>
-            <button class="invert" id="signUp" @click="signUp = !signUp">Sign Up</button>
+            <h2>Bonjour!</h2>
+            <p>Veuillez saisir vos données personnelles</p>
+            <button class="invert" id="signUp" @click="signUp = !signUp">S'inscrire</button>
           </div>
         </div>
       </div>
       <form class="sign-up" action="#">
-        <h2>Create login</h2>
-        <div>Use your email for registration</div>
-        <input type="text" placeholder="Name" />
+        <h2>Créer une connexion</h2>
+        <div>Utilisez votre email pour l'inscription</div>
+        <input type="text" placeholder="Pseudo" />
         <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button>Sign Up</button>
+        <input type="password" placeholder="Mot de passe" />
+        <button>S'inscrire</button>
       </form>
       <form class="sign-in" action="#">
-        <h2>Sign In</h2>
-        <div>Use your account</div>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <a href="#">Forgot your password?</a>
-        <button>Sign Up</button>
+        <h2>S'identifier</h2>
+        <div>Utilisez votre compte</div>
+        <input type="text" placeholder="Pseudo" />
+        <input type="password" placeholder="Mot de passe" />        
+        <button>Se connecter</button>
       </form>
     </div>
   </article>
