@@ -17,10 +17,10 @@ exports.signup = (req,res)=>{
     // verification des inputs
     let emailok = validInput.validEmail(email);
     console.log(emailok);
-    let passwordok = validInput.validPassword(passwordok);
+    let passwordok = validInput.validPassword(password);
     console.log(passwordok);
     let pseudook = 
-    validInput.validPseudo(pseudook);
+    validInput.validPseudo(pseudo);
     console.log(pseudook);
 
     if(emailok == true && passwordok == true && pseudook == true){
@@ -58,8 +58,8 @@ exports.signup = (req,res)=>{
 
 //Connection
 exports.login = (req,res)=>{
-    let email = res.body.email;
-    let password = res.body.password;
+    let email = req.body.email;
+    let password = req.body.password;
 
     if(email == null || password == null){
         res.status(400).json({ error: 'paramètre manquant!'});
@@ -110,7 +110,7 @@ exports.changeProfil = (req,res)=>{
     console.log('admin', validInput.validPassword(newPassword));
     if(validInput.validPassword(newPassword)){
         //vérifie que le password est différent de l'ancien
-        models.User.finOne({
+        models.User.findOne({
             where: { id:userId }
         }).then(user => {
             console.log('Profil trouvé', user)
@@ -137,35 +137,31 @@ exports.changeProfil = (req,res)=>{
 }
 //suppression user
 exports.deleteProfil = (req, res)=>{
-    let userId = req.body.userId;
-    let comments = req.body.comments;
+    let userId = req.body.userId;  
 
     if(userId !=null){
-        models.User.finOne({
+        models.User.findOne({
             where: { id: userId}
         })
         .then(user =>{
             if(user !=null){
                 models.Comment.destroy({
-                    where: { comment: comments }
+                    where: { userId: userId }
                 }).then(()=>{
                     console.log('Tous les commentaires de cet utilisateur ont été supprimé!');
-                    models.Comment.destroy({
-                        where: { comment: comments }
-                    })
-                });
+                     });
                 models.Post.destroy({
-                    where: { userId: user.id }
+                    where: { userId: userId }
                 })
                 .then(()=>{
-                    console.log('Tous les posts de cet utilisateur ont été supprimé!');
-                    models.User.destroy({
-                        where: { id: user.id }
-                    })
-                    .then(() => res.status(200).json({message: 'profile supprimer!'}))
-                    .catch(error => console.log(error))        
-                    
-                }).catch(error => res.status(500).json(error))
+                    console.log('Tous les posts de cet utilisateur ont été supprimé!');  
+                }).catch(error => res.status(500).json(error));
+                models.User.destroy({
+                    where: {id: userId }
+                })
+                .then(() => res.status(200).json({message: 'profile supprimer!'}))
+                .catch(error => console.log(error))   
+
             }else{
                 res.status(401).json({ error: 'cet utilisateur n\'existe pas '})
             }

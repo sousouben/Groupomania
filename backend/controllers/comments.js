@@ -2,9 +2,10 @@ const models = require('../models');
 const fs = require('fs');
 
 exports.createComment = (req,res)=>{
-        let comments = req.body.comments;
+        let content = req.body.comments;
         const newCom = models.Comment.create({
-            comments: comments,
+            contents: content,
+            status:0,
             userId: req.body.userId,
             postId: req.params.id
         }).then(newCom =>{

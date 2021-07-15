@@ -5,13 +5,14 @@ const fs = require('fs');
 //Permet de créer un nouveau post
 exports.createPost = (req, res)=>{
     let imageUrl;
-    let id = res.body.id;
+    let id = req.body.id;
     models.User.findOne({
         where: {id: id}
     })
     .then(user =>{
         if(user !== null){
             let content = req.body.content;
+            let title = req.body.title;
             if(req.file != undefined){
                 imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
             }
@@ -23,8 +24,9 @@ exports.createPost = (req, res)=>{
             }else{
                 models.Post.create({
                     content: content,
+                    title: title,
                     image: imageUrl,
-                    UserId: user.id
+                    UserId: id
                 }).then((newPost)=>{
                     res.status(201).json(newPost)
                 })
@@ -66,22 +68,23 @@ exports.getAllPosts = (req, res)=>{
 
 //modifier un post
 exports.updatePost = (req, res)=>{
-    let userOrder = req.body.userIdOrder;
-    let id = req.body.id;
+    let userId = req.body.userId;
+    
     models.User.findOne({
         attributes: ['id', 'email', 'pseudo','status'],
-        where: { id: id }
+        where: { id: userId }
     })
     .then(user =>{
-        if(user && (user.status == true || user.id == userOrder)){
+        if(user && (user.status == true || user.id == userId)){
             console.log('modification ok pour le post:', req.body.postId);
             models.Post.update({
-                content: req.body.newText,
+                content: req.body.newContent,
+                title: req.body.newTitle,
                 image: req.body.newImg
             },
             {
                 where: {id: req.body.postId}
-            }).then(()=> res.end())
+            }).then(()=> res.status(200).json({message:"Nouveau contenu enregister"}))
             .catch(error=> res.status(500).json(error))
         }else{
             res.status(401).json({error: 'utilisateur non autorisé à modifier ce post'})
@@ -92,14 +95,14 @@ exports.updatePost = (req, res)=>{
 
 //supprimer un post
 exports.deletePost = (req, res)=>{
-    let userOrder = req.body.userIdOrder;
+    let userId = req.body.userId;
     let id = req.body.id;
 
     models.User.findOne({
         attributes: ['id', 'email', 'pseudo', 'status'],
-        where: { id: id}
+        where: { id: userId}
     }).then(user=>{
-        if(user && (user.status == true || user.id ==userOrder)){
+        if(user && (user.status == true || user.id == userId)){
             console.log('suppression du post id:', req.body.postId);
             models.Post.findOne({
                 where: { id: req.body.postId}
@@ -118,7 +121,7 @@ exports.deletePost = (req, res)=>{
                     models.Post.destroy({
                         where:{ id:postFind.id}
                     })
-                    .then(()=>res.end())
+                    .then(()=>res.status(200).json({ message: "Post supprimer!"}))
                     .catch(error=> res.status(500).json(error))
                 }
             }).catch(error => res.status(500).json(error))
