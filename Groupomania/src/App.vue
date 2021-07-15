@@ -1,10 +1,7 @@
 <template>
-<div class="img">
-<img src="../src/assets/logo-black.png" width="150" alt="logo"/>
-</div>
   <div id="nav">    
     <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link>|
+    <router-link to="/login">Login</router-link> |
     <router-link to="/about">About</router-link>
   </div>
   <router-view/>
