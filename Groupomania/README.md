@@ -1,4 +1,6 @@
-# my-first-vue-cli-app
+# Groupomania
+
+npm install -g @vue/cli
 
 ## Project setup
 ```
