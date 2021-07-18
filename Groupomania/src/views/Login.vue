@@ -1,211 +1,132 @@
 <template>
-  <article>
-    <div class="container" :class="{'sign-up-active' : signUp}">
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-left">
-            <h2>Content de vous revoir!</h2>
-            <p>Veuillez vous connecter avec vos infos personnelles</p>
-            <button class="invert" id="signIn" @click="signUp = !signUp">Se connecter</button>
-          </div>
-          <div class="overlay-right">
-            <h2>Bonjour!</h2>
-            <p>Veuillez saisir vos données personnelles</p>
-            <button class="invert" id="signUp" @click="signUp = !signUp">S'inscrire</button>
-          </div>
-        </div>
-      </div>
-      <form class="sign-up" action="#">
-        <h2>Créer une connexion</h2>
-        <div>Utilisez votre email pour l'inscription</div>
-        <input type="text" placeholder="Pseudo" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Mot de passe" />
-        <button>S'inscrire</button>
-      </form>
-      <form class="sign-in" action="#">
-        <h2>S'identifier</h2>
-        <div>Utilisez votre compte</div>
-        <input type="text" placeholder="Pseudo" />
-        <input type="password" placeholder="Mot de passe" />        
-        <button>Se connecter</button>
-      </form>
+  <div class="card">
+    <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
+    <h1 class="card__title" v-else>Inscription</h1>
+    <p class="card__subtitle" v-if="mode == 'login'">Tu n'as pas encore de compte ? <span class="card__action" @click="switchToCreateAccount()">Créer un compte</span></p>
+    <p class="card__subtitle" v-else>Tu as déjà un compte ? <span class="card__action" @click="switchToLogin()">Se connecter</span></p>
+    <div class="form-row">
+      <input v-model="email" class="form-row__input" type="text" placeholder="Adresse mail"/>
     </div>
-  </article>
+    <div class="form-row" v-if="mode == 'create'">
+      <input v-model="pseudo" class="form-row__input" type="text" placeholder="Pseudo"/>      
+    </div>
+    <div class="form-row">
+      <input v-model="password" class="form-row__input" type="password" placeholder="Mot de passe"/>
+    </div>
+    <div class="form-row" v-if="mode == 'login' && status == 'error_login'">
+      Adresse mail et/ou mot de passe invalide
+    </div>
+    <div class="form-row" v-if="mode == 'create' && status == 'error_create'">
+      Adresse mail déjà utilisée
+    </div>
+    <div class="form-row">
+      <button @click="login()" class="button" :class="{'button--disabled' : !validatedFields}" v-if="mode == 'login'">
+        <span v-if="status == 'loading'">Connexion en cours...</span>
+        <span v-else>Connexion</span>
+      </button>
+      <button @click="createAccount()" class="button" :class="{'button--disabled' : !validatedFields}" v-else>
+        <span v-if="status == 'loading'">Création en cours...</span>
+        <span v-else>Créer mon compte</span>
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
-   export default {
-      name: 'Login',
-    data: () => {
-      return {
-        signUp: false
-      }
+
+import { mapState } from 'vuex'
+
+export default {
+  name: 'Login',
+  data: function () {
+    return {
+      mode: 'login',
+      email: '',
+      pseudo: '',
+      password: '',
     }
+  },
+  mounted: function () {
+    if (this.$store.state.user.userId != -1) {
+      this.$router.push('/profile');
+      return ;
+    }
+  },
+  computed: {
+    validatedFields: function () {
+      if (this.mode == 'create') {
+        if (this.email != "" && this.pseudo != "" && this.password != "") {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (this.email != "" && this.password != "") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
+    ...mapState(['status'])
+  },
+  methods: {
+    switchToCreateAccount: function () {
+      this.mode = 'create';
+    },
+    switchToLogin: function () {
+      this.mode = 'login';
+    },
+    login: function () {
+      const self = this;
+      this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password,
+      }).then(function () {
+        self.$router.push('/login');
+      }, function (error) {
+        console.log(error);
+      })
+    },
+    createAccount: function () {
+      const self = this;
+      this.$store.dispatch('createAccount', {
+        email: this.email,
+        pseudo: this.pseudo,
+        password: this.password,
+      }).then(function () {
+        self.login();
+      }, function (error) {
+        console.log(error);
+      })
+    },
   }
+}
 </script>
 
-<style lang="scss" scoped>
-  .container {
-    position: relative;
-    left: 22%;
-    width: 768px;
-    height: 480px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
-                0 10px 10px rgba(0, 0, 0, .2);
-    background: linear-gradient(to bottom, #efefef, #ccc);
-    .overlay-container {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 50%;
-      height: 100%;
-      overflow: hidden;
-      transition: transform .5s ease-in-out;
-      z-index: 100;
-    }
-    .overlay {
-      position: relative;
-      left: -100%;
-      height: 100%;
-      width: 200%;
-      background: linear-gradient(to bottom right, blue, violet);
-      color: #fff;
-      transform: translateX(0);
-      transition: transform .5s ease-in-out;
-    }
-    @mixin overlays($property) {
-      position: absolute;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      flex-direction: column;
-      padding: 70px 40px;
-      width: calc(50% - 80px);
-      height: calc(100% - 140px);
-      text-align: center;
-      transform: translateX($property);
-      transition: transform .5s ease-in-out;
-    }
-    .overlay-left {
-      @include overlays(-20%);
-    }
-    .overlay-right {
-      @include overlays(0);
-      right: 0;
-    }
-  }
-  h2 {
-    margin: 0;
-  }
-  p {
-    margin: 20px 0 30px;
-  }
-  
-  button {
-    border-radius: 20px;
-    border: 1px solid blue;
-    background-color: blueviolet;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 40px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: transform .1s ease-in;
-    &:active {
-      transform: scale(.9);
-    }
-    &:focus {
-      outline: none;
-    }
-  }
-  button.invert {
-    background-color: transparent;
-    border-color: #fff;
-  }
-  form {
-    position: absolute;
-    top: 0;
+<style scoped>
+  .form-row {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-    padding: 90px 60px;
-    width: calc(50% - 120px);
-    height: calc(100% - 180px);
-    text-align: center;
-    background: linear-gradient(to bottom, #efefef, #ccc);
-    transition: all .5s ease-in-out;
-    div {
-      font-size: 1rem;
-    }
-    input {
-      background-color: #eee;
-      border: none;
-      padding: 8px 15px;
-      margin: 6px 0;
-      width: calc(100% - 30px);
-      border-radius: 15px;
-      border-bottom: 1px solid #ddd;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .4), 
-                        0 -1px 1px #fff, 
-                        0 1px 0 #fff;
-      overflow: hidden;
-      &:focus {
-        outline: none;
-        background-color: #fff;
-      }
-    }
+    margin: 16px 0px;
+    gap:16px;
+    flex-wrap: wrap;
   }
-  .sign-in {
-    left: 0;
-    z-index: 2;
+
+  .form-row__input {
+    padding:8px;
+    border: none;
+    border-radius: 8px;
+    background:#f2f2f2;
+    font-weight: 500;
+    font-size: 16px;
+    flex:1;
+    min-width: 100px;
+    color: black;
   }
-  .sign-up {
-    left: 0;
-    z-index: 1;
-    opacity: 0;
+
+  .form-row__input::placeholder {
+    color:#aaaaaa;
   }
-  .sign-up-active {
-    .sign-in {
-      transform: translateX(100%);
-    }
-    .sign-up {
-      transform: translateX(100%);
-      opacity: 1;
-      z-index: 5;
-      animation: show .5s;
-    }
-    .overlay-container {
-      transform: translateX(-100%);
-    }
-    .overlay {
-      transform: translateX(50%);
-    }
-    .overlay-left {
-      transform: translateX(0);
-    }
-    .overlay-right {
-      transform: translateX(20%);
-    }
-  }
-  @keyframes show {
-    0% {
-      opacity: 0;
-      z-index: 1;
-    }
-    49% {
-      opacity: 0;
-      z-index: 1;
-    }
-    50% {
-      opacity: 1;
-      z-index: 10;
-    }
-  }
-</style>
+
+
+</style>>
