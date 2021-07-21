@@ -95,38 +95,8 @@ exports.updatePost = (req, res)=>{
 
 //supprimer un post
 exports.deletePost = (req, res)=>{
-    let userId = req.body.userId;
-    let id = req.body.id;
-
-    models.User.findOne({
-        attributes: ['id', 'email', 'pseudo', 'status'],
-        where: { id: userId}
-    }).then(user=>{
-        if(user && (user.status == true || user.id == userId)){
-            console.log('suppression du post id:', req.body.postId);
-            models.Post.findOne({
-                where: { id: req.body.postId}
-            })
-            .then((postFind)=>{
-                if(postFind.image){
-                    const filename = postFind.image.split('/images/')[1];
-                    console.log('test', filename);
-                    fs.unlink(`images/${filename}`,()=>{
-                        models.Post.destroy({
-                            where:{ id: postFind.id}
-                        }).then(()=>res.end())
-                        .catch(error=> res.status(500).json(error))
-                    })
-                }else{
-                    models.Post.destroy({
-                        where:{ id:postFind.id}
-                    })
-                    .then(()=>res.status(200).json({ message: "Post supprimer!"}))
-                    .catch(error=> res.status(500).json(error))
-                }
-            }).catch(error => res.status(500).json(error))
-        }else{
-            res.status(403).json('utilisateur non autorisé à supprimer ce post')
-        }
-    }).catch(error=> res.status(500).json(error));    
-};
+    models.Post.destroy({
+        where: { id:req.params.id }
+    })
+    .then(()=> res.status(200).json({ message: "Post supprimé"}))
+    .catch(error => res.status(500).json({ error }))};
