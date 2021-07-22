@@ -7,7 +7,7 @@ const usersCtrl = require('../controllers/users');
 router.post('/signup', usersCtrl.signup);
 router.post('/login', usersCtrl.login);
 router.delete('/delete', auth, usersCtrl.deleteProfil);
-router.post('/myprofile',auth, usersCtrl.userProfil);
+router.get('/myprofile/:id',auth, usersCtrl.userProfil);
 router.put('/update', auth, usersCtrl.changeProfil);//modification profil
 
 module.exports = router;

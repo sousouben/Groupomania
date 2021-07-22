@@ -92,11 +92,12 @@ exports.login = (req,res)=>{
 
 //profil user (myprofile)
 exports.userProfil = (req,res)=>{
-    let id = req.body.id;
+    console.log(req.params.id);
+    let id = req.params.id;
     models.User.findOne({ 
         where: { id: id }
-    })
-    .then(user=> res.status(200).json(user))
+    })    
+    .then(user=>res.status(200).json(user))
     .catch(error=> res.status(500).json(error))    
 };
 

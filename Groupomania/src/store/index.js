@@ -4,7 +4,7 @@ import 'es6-promise/auto'
 const axios = require('axios');
 
 const instance = axios.create({
-  baseURL: 'https://localhost:3000/api'
+  baseURL: 'http://localhost:3000/api'
 });
 
 let user = localStorage.getItem('user');
@@ -16,7 +16,7 @@ if (!user) {
 } else {
   try {
     user = JSON.parse(user);
-    instance.defaults.headers.common['Authorization'] = user.token;
+    instance.defaults.headers.common['Authorization'] = 'BEARER '+ user.token;
   } catch (ex) {
     user = {
       userId: -1,
@@ -34,6 +34,10 @@ const store = createStore({
       pseudo: '',
       email: '',
       image: '',
+    }, userProfil: {
+      pseudo: '',
+      email: '',
+      image: '',
     },
   },
   mutations: {
@@ -41,12 +45,16 @@ const store = createStore({
       state.status = status;
     },
     logUser: function (state, user) {
-      instance.defaults.headers.common['Authorization'] = user.token;
+      instance.defaults.headers.common['Authorization'] = 'BEARER '+ user.token;
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', JSON.stringify(user.token));    
       state.user = user;
     },
     userInfos: function (state, userInfos) {
       state.userInfos = userInfos;
+    },
+    userProfil: function (state, userProfil) {
+      state.userProfil = userProfil;
     },
     logout: function (state) {
       state.user = {
@@ -60,6 +68,7 @@ const store = createStore({
     login: ({commit}, userInfos) => {
       commit('setStatus', 'loading');
       return new Promise((resolve, reject) => {
+        console.log(userInfos);
         instance.post('/users/login', userInfos)
         .then(function (response) {
           commit('setStatus', '');
@@ -76,6 +85,7 @@ const store = createStore({
       commit('setStatus', 'loading');
       return new Promise((resolve, reject) => {
         commit;
+        console.log(userInfos);
         instance.post('/users/signup', userInfos)
         .then(function (response) {
           commit('setStatus', 'created');
@@ -87,10 +97,12 @@ const store = createStore({
         });
       });
     },
-    getUserInfos: ({commit}) => {
-      instance.post('/users/myprofile')
+    getUserInfos: ({commit}, userInfos) => { 
+      console.log(userInfos);     
+      instance.get('/users/myprofile/'+ userInfos)
       .then(function (response) {
-        commit('userInfos', response.data.myprofile);
+        console.log(response);
+        commit('userProfil', response.data);
       })
       .catch(function () {
       });

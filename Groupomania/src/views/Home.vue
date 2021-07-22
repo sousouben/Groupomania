@@ -1,6 +1,7 @@
 <template>
 <section>
 <Navbar></Navbar>
+ 
 </section>
   <v-container class="home-container">    
     <v-row class="text-center bandeau">
