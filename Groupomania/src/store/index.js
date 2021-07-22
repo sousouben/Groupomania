@@ -1,4 +1,5 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
+import 'es6-promise/auto'
 
 const axios = require('axios');
 

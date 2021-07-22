@@ -1,19 +1,15 @@
 <template>
-    <header>
-        <img src="icon-left-font.png" alt="logo-groupomania"/>
-
-    </header>    
+  <header>
+    <img src="icon-left-font.png" alt="logo-groupomania" />
+  </header>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            
-        }
-    }
-    
-}
+  name: "Header",
+  data() {
+    return {};
+  },
+};
 </script>
 <style scoped>
-
 </style>
