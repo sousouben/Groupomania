@@ -1,5 +1,8 @@
 <template>
-  <v-container class="home-container">
+<section>
+<Navbar></Navbar>
+</section>
+  <v-container class="home-container">    
     <v-row class="text-center bandeau">
       <v-col class="mb-4 px-5">   
         <h1 class="display-1 font-weight-bold mb-5">          
@@ -11,9 +14,11 @@
   </v-container>
 </template>
 <script>
+import Navbar from '../components/Navbar.vue';
 
 export default {
-  name: "Home"
+  components: { Navbar },
+  name:"Home"
 };
 </script>
 <style lang="scss" scoped>

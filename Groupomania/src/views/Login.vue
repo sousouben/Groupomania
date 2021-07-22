@@ -1,4 +1,7 @@
 <template>
+<section>
+<Navbar></Navbar>
+</section>
   <div class="card">
     <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
     <h1 class="card__title" v-else>Inscription</h1>
@@ -36,8 +39,10 @@
 
 import { mapState } from 'vuex'
 
+import Navbar from '../components/Navbar.vue';
 export default {
-  name: 'Login',
+  components: { Navbar },
+  name:"About",
   data: function () {
     return {
       mode: 'login',
