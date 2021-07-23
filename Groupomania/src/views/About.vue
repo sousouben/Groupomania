@@ -30,9 +30,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 h1{
   
-  color:blueviolet;
+  color: #d44c5c;
 }
 li{
   
@@ -41,7 +42,7 @@ li{
   }
 *{
   font-size: 1.5rem;
-  color: blue;
+  color: #0c2444;
 }
 
 

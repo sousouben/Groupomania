@@ -10,6 +10,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 h1{
-    color: blueviolet;
+    color: rgb(22, 22, 141);
     }
+
 </style>

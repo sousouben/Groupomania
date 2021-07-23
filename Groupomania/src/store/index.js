@@ -16,7 +16,7 @@ if (!user) {
 } else {
   try {
     user = JSON.parse(user);
-    instance.defaults.headers.common['Authorization'] = 'BEARER '+ user.token;
+    instance.defaults.headers.common['Authorization'] = 'Bearer '+ user.token;
   } catch (ex) {
     user = {
       userId: -1,
@@ -45,7 +45,7 @@ const store = createStore({
       state.status = status;
     },
     logUser: function (state, user) {
-      instance.defaults.headers.common['Authorization'] = 'BEARER '+ user.token;
+      instance.defaults.headers.common['Authorization'] = 'Bearer '+ user.token;
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', JSON.stringify(user.token));    
       state.user = user;

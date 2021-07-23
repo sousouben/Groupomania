@@ -1,94 +1,80 @@
 <template>
-  <v-app>
+  <div id="app">
+    
+    <header>
+        <img src="./assets/iconwhite.png" id="logoconnect" alt="Logo Groupomania Connect" />
+    </header>
     <router-view></router-view>
-  </v-app>
+</div>  
 </template>
+
 <script>
-export default {
-  name: "App",
-  components: {},
-};
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&display=swap");
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&display=swap');
 
-* {
-  font-family: "Poppins", sans-serif;
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%; 
+}
+img{
+  width: 100%;
 }
 
 #app {
-  max-width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
 }
-
-body {
-  background-image: linear-gradient(62deg, white 0%, #f7ce68 100%);
+header {
+  background-image: url("assets/head.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 32px;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+  border-bottom: 6px solid #d44c5c;
+  font-size: 1.25em;
+  display: flex;
+  flex-direction: row;
+}
+header a{
+  text-decoration: none;
+  color: white;
+  margin: auto;
+}
+header img {
+  width: 22%;
+  margin: auto;
 }
 
-img {
-  max-width: 100%;
-  border-radius: 8px;
+@media screen and (max-width: 768px) {
+  header img {
+    width: 35%;
+  }
+}
+@media screen and (max-width: 450px) {
+  header img {
+    width: 50%;
+  }
 }
 
 .card {
-  max-width: 100%;
-  width: 540px;
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  width: 72%;
+  margin: auto;
 }
-
 .card__title {
-  text-align: center;
+  text-align:center;
   font-weight: 800;
 }
-
 .card__subtitle {
   text-align: center;
-  color: #666;
+  color:#666;
   font-weight: 500;
-}
-
-.button {
-  background: #2196f3;
-  color: white;
-  border-radius: 8px;
-  font-weight: 800;
-  font-size: 15px;
-  border: none;
-  width: 100%;
-  padding: 16px;
-  transition: 0.4s background-color;
-}
-
-.card__action {
-  color: #2196f3;
-  text-decoration: underline;
-}
-
-.card__action:hover {
-  cursor: pointer;
-}
-
-.button:hover {
-  cursor: pointer;
-  background: #1976d2;
-}
-
-.button--disabled {
-  background: #cecece;
-  color: #ececec;
-}
-.button--disabled:hover {
-  cursor: not-allowed;
-  background: #cecece;
 }
 </style>

@@ -6,7 +6,7 @@ const usersCtrl = require('../controllers/users');
 //router users
 router.post('/signup', usersCtrl.signup);
 router.post('/login', usersCtrl.login);
-router.delete('/delete', auth, usersCtrl.deleteProfil);
+router.delete('/delete/:id', auth, usersCtrl.deleteProfil);
 router.get('/myprofile/:id',auth, usersCtrl.userProfil);
 router.put('/update', auth, usersCtrl.changeProfil);//modification profil
 

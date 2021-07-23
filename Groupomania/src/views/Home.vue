@@ -9,7 +9,7 @@
         <h1 class="display-1 font-weight-bold mb-5">          
           Bienvenue sur le Social Network de Groupomania !          
         </h1>
-        <img src="../assets/Groupe.png" alt="groupe">
+        <img src="../assets/groupomania.png" alt="groupe">
       </v-col>
     </v-row>
   </v-container>
@@ -22,17 +22,14 @@ export default {
   name:"Home"
 };
 </script>
-<style lang="scss" scoped>
+<style>
 h1{
-  color:blueviolet;
+  color:#0c2444;;
+  text-align: center;
 }
-li{
-  list-style: none;  
-  
-  }
 *{
   font-size: 1.5rem;
-  color: blue;
+  color: black;
 }
 
 

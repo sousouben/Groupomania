@@ -137,37 +137,12 @@ exports.changeProfil = (req,res)=>{
 }
 }
 //suppression user
-exports.deleteProfil = (req, res)=>{
-    let userId = req.body.userId;  
-
-    if(userId !=null){
-        models.User.findOne({
-            where: { id: userId}
-        })
-        .then(user =>{
-            if(user !=null){
-                models.Comment.destroy({
-                    where: { userId: userId }
-                }).then(()=>{
-                    console.log('Tous les commentaires de cet utilisateur ont été supprimé!');
-                     });
-                models.Post.destroy({
-                    where: { userId: userId }
+exports.deleteProfil = (req, res) => {
+    User.findOne({ where: { id: req.params.id }})  
+      .then((user) => {
+          User.destroy({ where: { id: req.params.id }}) 
+                    .then(() => res.status(200).json({ message: 'Compte supprimé' }))
+                    .catch(error => res.status(400).json({ error }));
                 })
-                .then(()=>{
-                    console.log('Tous les posts de cet utilisateur ont été supprimé!');  
-                }).catch(error => res.status(500).json(error));
-                models.User.destroy({
-                    where: {id: userId }
-                })
-                .then(() => res.status(200).json({message: 'profile supprimer!'}))
-                .catch(error => console.log(error))   
-
-            }else{
-                res.status(401).json({ error: 'cet utilisateur n\'existe pas '})
-            }
-        })
-    }else{
-        res.status(500).json({ error: 'Impossible de supprimer ce compte!'})
-    }
-    };
+            .catch (error => res.status(500).json({ error }));
+            };
