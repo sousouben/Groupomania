@@ -1,14 +1,15 @@
 <template>
 <section>
-  <Navbar></Navbar>  
+  <NavbarIntern></NavbarIntern>  
+  <div class="blocsignup">
   <div class="card">
     <h1 class="card__title">Espace Perso</h1>
     <p class="card__subtitle">Voilà donc qui je suis...</p>
     <p>
       {{ user.pseudo }} <br />
-      {{ user.email }}
-    </p>
-    <img src=""  />
+      {{ user.email }}     
+    </p> 
+    <p>Vous êtes incrit depuis le <span>{{ user.createdAt }}</span></p>   
     <button @click="deleteProfil" class="accountbutton">
       Supprimez votre compte
     </button>
@@ -16,27 +17,21 @@
       <button @click="logout()" class="button">Déconnexion</button>
     </div>
   </div>
+  </div>
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import Navbar from '../components/Navbar'
+import NavbarIntern from '../components/NavbarIntern';
 
 export default {
   name: "Profile",
   components: {
-        Navbar
+        NavbarIntern
     },
   data() {
-    return {
-      userAccount: {
-        userId: localStorage.getItem("userId"),
-        pseudo: "",
-        email: "",
-        image: "",
-      },
-    };
+    
   },
   mounted: function () {
     console.log("ok");
@@ -58,11 +53,11 @@ export default {
       this.$router.push("/");
     },
     deleteProfil() {
-      let url = `http://localhost:3000/api/users/delete/${this.userAccount.userId}`;
+      let url = `http://localhost:3000/api/users/delete/${this.$store.state.user.userId}`;
       let options = {
         method: "DELETE",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          'Authorization': 'Bearer '+ this.$store.state.user.token
         },
       };
       fetch(url, options)
@@ -78,9 +73,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.accountbutton {
+<style lang="css" scoped>
+
+.accountbutton{
   width: auto;
   margin: 10px 10px 50px 10px;
 }
+
 </style>

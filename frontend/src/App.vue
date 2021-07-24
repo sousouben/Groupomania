@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <header>
         <img src="./assets/iconwhite.png" id="logoconnect" alt="Logo Groupomania Connect" />
     </header>
@@ -19,6 +18,7 @@ body, html {
   padding: 0;
   height: 100%; 
 }
+
 img{
   width: 100%;
 }

@@ -1,6 +1,8 @@
 <template>
+<div>
     <h1>Bonjour, vous vous êtes sûrement perdus !</h1>
-    <img src="../assets/404.png" alt="image erreur 404">
+    <img src="../assets/404.png" alt="redirection erreur"/>
+</div>
 </template>
 <script>
 

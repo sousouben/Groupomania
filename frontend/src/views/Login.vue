@@ -1,21 +1,24 @@
 <template>
 <section>
 <Navbar></Navbar>
-</section>
+<div class="blocsignup"> 
   <div class="card">
     <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
     <h1 class="card__title" v-else>Inscription</h1>
     <p class="card__subtitle" v-if="mode == 'login'">Tu n'as pas encore de compte ? <span class="card__action" @click="switchToCreateAccount()">Créer un compte</span></p>
     <p class="card__subtitle" v-else>Tu as déjà un compte ? <span class="card__action" @click="switchToLogin()">Se connecter</span></p>
     <div class="form-row">
-      <input v-model="email" class="form-row__input" type="text" placeholder="Adresse mail"/>
+      <input v-model="email" class="form-row__input" type="text" placeholder="Adresse mail" required="required"/>
     </div>
     <div class="form-row" v-if="mode == 'create'">
-      <input v-model="pseudo" class="form-row__input" type="text" placeholder="Pseudo"/>      
+      <input v-model="pseudo" class="form-row__input" type="text" placeholder="Pseudo" required="required"/>      
     </div>
     <div class="form-row">
-      <input v-model="password" class="form-row__input" type="password" placeholder="Mot de passe"/>
+      <input v-model="password" class="form-row__input" type="password" placeholder="Mot de passe" required="required"/>      
     </div>
+    <div>
+      <p class="mdp">⚠️ Minimum 8 caractères dont 1 Majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial</p>
+      </div>
     <div class="form-row" v-if="mode == 'login' && status == 'error_login'">
       Adresse mail et/ou mot de passe invalide
     </div>
@@ -33,6 +36,8 @@
       </button>
     </div>
   </div>
+</div>
+  </section>
 </template>
 
 <script>
@@ -110,6 +115,10 @@ export default {
 </script>
 
 <style scoped>
+
+.mdp{
+  font-size: 0.8rem;
+}
   .form-row {
     display: flex;
     margin: 16px 0px;
@@ -118,10 +127,10 @@ export default {
   }
 
   .form-row__input {
-    padding:10px;
+    padding:12px;
     border: none;
     border-radius: 8px;
-    background:#f2f2f2;
+    background:#e3e1f5;
     font-weight: 500;
     font-size: 16px;
     flex:1;
@@ -132,6 +141,6 @@ export default {
   .form-row__input::placeholder {
     color:#aaaaaa;
   }
-
+   
 
 </style>

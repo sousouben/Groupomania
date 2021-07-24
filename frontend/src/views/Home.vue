@@ -1,8 +1,6 @@
 <template>
 <section>
 <Navbar></Navbar>
- 
-</section>
   <v-container class="home-container">    
     <v-row class="text-center bandeau">
       <v-col class="mb-4 px-5">   
@@ -13,6 +11,7 @@
       </v-col>
     </v-row>
   </v-container>
+  </section>
 </template>
 <script>
 import Navbar from '../components/Navbar.vue';
@@ -23,10 +22,12 @@ export default {
 };
 </script>
 <style>
-h1{
-  color:#0c2444;;
+h1{  
+  color:#d44c5c;
   text-align: center;
 }
+
+
 *{
   font-size: 1.5rem;
   color: black;

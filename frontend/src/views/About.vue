@@ -1,6 +1,6 @@
 <template>
-<section>
   <Navbar></Navbar>
+  <div class="blocsignup"> 
   <v-container>    
     <v-layout>
       <v-flex xs12>
@@ -18,7 +18,7 @@
       </v-flex>
     </v-layout>
   </v-container>
-  </section>
+</div>
 </template>
 
 <script>
@@ -35,20 +35,11 @@ h1{
   
   color: #d44c5c;
 }
-ul{
-  margin-left: 12%;
-  margin-right: 2%;
-}
 li{
   
   list-style: none;  
+  color:white;
   
   }
-  p{
-    margin-left: 12%;
-  }
-*{
-  font-size: 1.5rem;
-  color: #0c2444;
-}
+  
 </style>

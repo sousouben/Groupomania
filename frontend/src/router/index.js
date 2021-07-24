@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Profile from "@/views/Profile.vue";
+import Infos from '../views/Infos.vue';
+import Message from '../views/Message.vue';
 
 const routes = [  
   {
@@ -30,8 +32,19 @@ const routes = [
     component: () => import('../components/NotFound.vue'),
     meta: {
       title: '404 Not Found'
-    }
+    }    
+  },
+  {
+    path: '/infos',
+    name: 'Infos',
+    component: Infos
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    component: Message
   }
+
 ]
 
 const router = createRouter({

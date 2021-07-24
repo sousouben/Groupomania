@@ -4,12 +4,18 @@
     <router-link to="/login" title="Login"><i class="fas fa-sign-in-alt"></i></router-link>  
     <router-link to="/about" title="About"><i class="fas fa-cog"></i></router-link>
     <router-link to="/infos" title="infos"><i class="fas fa-globe"></i></router-link>
-    
+    <router-link to="/" title="deconnexion"><i @click="deconnect" class="fas fa-door-open"></i></router-link>
   </nav>
 </template>
 <script>
 export default {
-  name: "Navbar"
+  name: "NavbarIntern",
+  methodes:{
+    deconnect(){
+      localStorage.clear();
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 <style lang="css">
