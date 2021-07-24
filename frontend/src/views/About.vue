@@ -1,11 +1,9 @@
 <template>
 <section>
   <Navbar></Navbar>
-</section>
   <v-container>    
     <v-layout>
-      <v-flex xs12>     
-      
+      <v-flex xs12>
         <h1 class="display-1 mt-5 px-2">Les 7 règles de vie chez Groupomania</h1>
         <ul>
           <li>1. Fais la paix avec ton passé pour qu’il ne dérange pas ton présent.</li>
@@ -20,7 +18,9 @@
       </v-flex>
     </v-layout>
   </v-container>
+  </section>
 </template>
+
 <script>
 import Navbar from '../components/Navbar.vue';
 export default {
@@ -35,15 +35,20 @@ h1{
   
   color: #d44c5c;
 }
+ul{
+  margin-left: 12%;
+  margin-right: 2%;
+}
 li{
   
   list-style: none;  
   
   }
+  p{
+    margin-left: 12%;
+  }
 *{
   font-size: 1.5rem;
   color: #0c2444;
 }
-
-
 </style>
