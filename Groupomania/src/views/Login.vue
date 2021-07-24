@@ -118,7 +118,7 @@ export default {
   }
 
   .form-row__input {
-    padding:8px;
+    padding:10px;
     border: none;
     border-radius: 8px;
     background:#f2f2f2;
