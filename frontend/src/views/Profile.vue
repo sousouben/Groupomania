@@ -53,7 +53,7 @@ export default {
       this.$router.push("/");
     },
     deleteProfil() {
-      let url = `http://localhost:3000/api/users/delete/${this.$store.state.user.userId}`;
+      let url = `http://localhost:3000/api/users/delete/${this.$store.state.user.userId}`;     
       let options = {
         method: "DELETE",
         headers: {

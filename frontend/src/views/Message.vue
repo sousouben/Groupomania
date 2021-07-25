@@ -22,6 +22,7 @@
 
 <script>
 import NavbarIntern from '../components/NavbarIntern';
+
 export default {
     name: 'Message',
     components: {
@@ -37,12 +38,6 @@ export default {
             userId: ""
         }
     },
-
-    mounted() {
-        this.userId = JSON.parse(localStorage.getItem("userId"));
-        console.log(this.userId)
-    },
-
     methods: {
         sendMessage() {
             let deliverMessage = {
@@ -51,7 +46,7 @@ export default {
                 "userId": this.userId
             }
             console.log(deliverMessage)
-            let url = "http://localhost:3000/api/posts/new"
+            let url =`http://localhost:3000/api/posts/new`
             let options = {
                 method: "POST",
                 body: JSON.stringify(deliverMessage),

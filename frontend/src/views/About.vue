@@ -1,5 +1,6 @@
 <template>
-  <Navbar></Navbar>
+<div>
+  <Navbar></Navbar>  
   <div class="blocsignup"> 
   <v-container>    
     <v-layout>
@@ -18,6 +19,7 @@
       </v-flex>
     </v-layout>
   </v-container>
+</div>
 </div>
 </template>
 

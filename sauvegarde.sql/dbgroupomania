@@ -1,0 +1,122 @@
+-- Base de données : `dbgroupomania`
+--
+-- Structure de la table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `contents` text NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `postId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `content` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `pseudo` varchar(50) NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `pseudo`, `createdAt`, `updatedAt`, `status`) VALUES
+(3, 'soum@gmail.com', '$2b$10$dgZQsWheadjwxzK3ZwJnVeSHgDJV7N6wNFYXaRdIRy3gdyiD/F2sS', 'soumsoum', '2021-07-22 09:10:07', '2021-07-22 09:10:07', 0),
+(6, 'ta.mouatakide@gmail.com', '$2b$10$HvPurOfTa9uvzlDGiHsQc.470GuTZVVK5vtgtOK6G9bOoGp0b5n6u', 'tawtaw', '2021-07-25 08:37:24', '2021-07-25 08:37:24', 0);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_comments_posts1_idx` (`postId`),
+  ADD KEY `fk_comments_users1_idx` (`userId`);
+
+--
+-- Index pour la table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_posts_users_idx` (`userId`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`),
+  ADD UNIQUE KEY `pseudo_UNIQUE` (`pseudo`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `fk_comments_posts1` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_comments_users1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `fk_posts_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
