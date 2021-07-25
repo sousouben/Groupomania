@@ -2,20 +2,20 @@
 <div>
 
      <!-- Liste des messages -->   
-      <div v-for="post in posts" :key="post.id" class="bloclist">
+      <div v-for="message in messages" :key="message.id" class="bloclist">
           <div class="blocauthor">
-              <h3><i class="far fa-user-circle"></i> {{ post.user.pseudo }}</h3>              
+              <h3><i class="far fa-user-circle"></i> {{ message.user.pseudo }}</h3>              
           </div>
           <div class="blocmessage">
-              <h4><i class="fas fa-angle-double-right"></i>  {{ post.title }} </h4>
-              <h5 class="pmessage"><i class="fas fa-angle-right"></i>"  {{ post.content }} "</h5>
+              <h4><i class="fas fa-angle-double-right"></i>  {{ message.title }} </h4>
+              <h5 class="pmessage"><i class="fas fa-angle-right"></i>"  {{ message.content }} "</h5>
           </div>  
           <div class="blocactions">
-                <button v-if="post.userId == userId"  
-                type="button" @click="deleteMessage(post.id)" class="accountbutton">Supprimez </button>
+                <button v-if="message.userId == userId"  
+                type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
           </div>
        
-        <Answers :postId="post.id" :postUserId="post.userId" />
+        <Answers :messageId="message.id" :messageUserId="message.userId" />
       </div>   
   </div>
 
@@ -28,46 +28,41 @@ export default {
     components: {
         Answers
     },
-
     data() {
         return {
             pseudo: "",
             userId: "",           
-            posts: []
+            messages: []
         }
     },
     mounted() {
-        this.userId = JSON.parse(localStorage.getItem("userId"));        
+        this.userId = this.$store.state.user.userId;        
         console.log(localStorage);
-
-
         let url = "http://localhost:3000/api/Posts/";
         let options = {
             method: "GET",
             headers: {
-                'Authorization': 'Bearer ' + this.$store.state.user.token
+                'Authorization': 'Bearer ' + this.$store.state.user.token,
+                
             }
         };
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                this.posts = data;
-                console.log(this.posts)
-
+                this.messages = data;
+                console.log(this.messages)
             })
             .catch(error => console.log(error))
     },
-
     methods: {
-
         ///////////////////DELETE POSTS/////////////////////
-        deleteMessage(postid) {
-            let url = `http://localhost:3000/api/posts/${ postid }`;
+        deleteMessage(messageid) {
+            let url = `http://localhost:3000/api/posts/${ messageid }`;
             let options = {
                 method: "DELETE",
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                    'Authorization': 'Bearer ' + this.$store.state.user.token,
                 }
             };
             fetch(url, options)

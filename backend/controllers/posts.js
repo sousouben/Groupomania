@@ -6,6 +6,7 @@ const fs = require('fs');
 exports.createPost = (req, res)=>{
     let imageUrl;
     let id = req.body.id;
+    console.log(id);
     models.User.findOne({
         where: {id: id}
     })

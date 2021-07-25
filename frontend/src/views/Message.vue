@@ -22,13 +22,11 @@
 
 <script>
 import NavbarIntern from '../components/NavbarIntern';
-
 export default {
     name: 'Message',
     components: {
         NavbarIntern        
     },
-
     data() {
         return {
             inputMessage: {
@@ -43,15 +41,16 @@ export default {
             let deliverMessage = {
                 "title": this.inputMessage.title,
                 "content": this.inputMessage.content,
-                "userId": this.userId
+                "id": this.userId
             }
-            console.log(deliverMessage)
+            // console.log(deliverMessage)
             let url =`http://localhost:3000/api/posts/new`
             let options = {
                 method: "POST",
                 body: JSON.stringify(deliverMessage),
                 headers: {
-                    'Authorization': 'Bearer '+ this.$store.state.user.token
+                    'Authorization': 'Bearer '+ this.$store.state.user.token,
+                    'Content-type': 'application/json'
                 }
             }
             fetch(url, options)
@@ -73,7 +72,6 @@ export default {
 </script>
 
 <style lang="css">
-
 body{
 background-image: url("../assets/backmess.jpg");  
 background-size: cover;

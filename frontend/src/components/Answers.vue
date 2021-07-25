@@ -18,10 +18,8 @@
 
 
 <script >
-
 export default {
     name: "Answers",
-
     data() {
         return {
             answer: "",
@@ -30,16 +28,16 @@ export default {
     },
     //Passer des données aux composants enfants avec les props//
     props: {
-        postId: Number,
-        postUserId: Number,
+        messageId: Number,
+        messageUserId: Number,
     },
     mounted() {
         ///////////////////GET COMMENTS/////////////////////
-        let url = `http://localhost:3000/api/comments/${this.postId}/comments`;
+        let url = "http://localhost:3000/api/comments/" + this.messageId + "/comments";
         let options = {
             method: "GET",
             headers: {
-                'Authorization': 'Bearer ' + this.$store.state.user.token
+                'Authorization': 'Bearer ' + this.$store.state.user.token,
             }
         };
         fetch(url, options)
@@ -48,20 +46,17 @@ export default {
                 console.log(data)
                 this.answers = data;
                 console.log(this.answers)
-
             })
             .catch(error => console.log(error))
     },
-
-
     methods: {
         ///////////////////CREATE COMMENT///////////////////// 
         createAnswer() {
             let inputContent = {
                 "content": this.content,
-                "postId": this.postId
+                "messageId": this.messageId
             }
-            let url = `http://localhost:3000/api/comments/${this.postId}/comment`;
+            let url = "http://localhost:3000/api/comments/:id/comment";
             let options = {
                 method: "POST",
                 body: JSON.stringify(inputContent),
