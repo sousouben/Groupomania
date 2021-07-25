@@ -3,7 +3,7 @@
     <router-link to="/" title="Home"><i class="fas fa-home"></i></router-link>
     <router-link to="/login" title="Login"><i class="fas fa-sign-in-alt"></i></router-link>  
     <router-link to="/about" title="About"><i class="fas fa-cog"></i></router-link>
-    <router-link to="/infos" title="infos"><i class="fas fa-globe"></i></router-link>
+    <router-link to="/infos" title="infos"><i class="fas fa-info"></i></router-link>
     
   </nav>
 </template>
@@ -14,7 +14,7 @@ export default {
 </script>
 <style lang="css">
 #navbar {
-    height: 50%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -25,8 +25,7 @@ export default {
     border-radius: 30px;
     padding: 15px;
     background-color:#0c2444;
-    opacity: 0.95;
-    margin-top: 25px;
+    opacity: 0.95;    
     margin-left: 25px;
 }
 #navbar i {
@@ -44,6 +43,7 @@ export default {
         justify-content: space-around;
         position: relative;
         margin: auto;
+        margin-top: 1%;
         left: 0;
     }
 }

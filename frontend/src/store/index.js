@@ -35,7 +35,8 @@ const store = createStore({
       pseudo: '',
       email: '',
       image: '',
-    }, userProfil: {
+    }, 
+    userProfil: {
       pseudo: '',
       email: '',
       image: '',

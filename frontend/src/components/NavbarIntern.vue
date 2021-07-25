@@ -1,9 +1,11 @@
 <template>
   <nav id="navbar">
+    <router-link to="/message" title="Rédiger un message"><i class="fas fa-pencil-alt"></i></router-link> 
+             <router-link to="/list" title="Liste des messages"><i class="fas fa-globe"></i></router-link>
     <router-link to="/" title="Home"><i class="fas fa-home"></i></router-link>
     <router-link to="/login" title="Login"><i class="fas fa-sign-in-alt"></i></router-link>  
     <router-link to="/about" title="About"><i class="fas fa-cog"></i></router-link>
-    <router-link to="/infos" title="infos"><i class="fas fa-globe"></i></router-link>
+    <router-link to="/infos" title="infos"><i class="fas fa-info"></i></router-link>
     <router-link to="/" title="deconnexion"><i @click="deconnect" class="fas fa-door-open"></i></router-link>
   </nav>
 </template>
