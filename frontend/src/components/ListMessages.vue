@@ -2,20 +2,20 @@
 <div>
 
      <!-- Liste des messages -->   
-      <div v-for="message in messages" :key="message.id" class="bloclist">
+      <div v-for="post in posts" :key="post.id" class="bloclist">
           <div class="blocauthor">
-              <h3><i class="far fa-user-circle"></i> {{ message.user.pseudo }}</h3>              
+              <h3><i class="far fa-user-circle"></i> {{ post.user.pseudo }}</h3>              
           </div>
           <div class="blocmessage">
-              <h4><i class="fas fa-angle-double-right"></i>  {{ message.title }} </h4>
-              <h5 class="pmessage"><i class="fas fa-angle-right"></i>"  {{ message.content }} "</h5>
+              <h4><i class="fas fa-angle-double-right"></i>  {{ post.title }} </h4>
+              <h5 class="pmessage"><i class="fas fa-angle-right"></i>"  {{ post.content }} "</h5>
           </div>  
           <div class="blocactions">
-                <button v-if="message.userId == userId"  
-                type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
+                <button v-if="post.userId == userId"  
+                type="button" @click="deleteMessage(post.id)" class="accountbutton">Supprimez </button>
           </div>
        
-        <Answers :messageId="message.id" :messageUserId="message.userId" />
+        <Answers :postId="post.id" :postUserId="post.userId" />
       </div>   
   </div>
 
@@ -33,7 +33,7 @@ export default {
         return {
             pseudo: "",
             userId: "",           
-            messages: []
+            posts: []
         }
     },
     mounted() {
@@ -45,15 +45,15 @@ export default {
         let options = {
             method: "GET",
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                'Authorization': 'Bearer ' + this.$store.state.user.token
             }
         };
         fetch(url, options)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                this.messages = data;
-                console.log(this.messages)
+                this.posts = data;
+                console.log(this.posts)
 
             })
             .catch(error => console.log(error))
@@ -62,8 +62,8 @@ export default {
     methods: {
 
         ///////////////////DELETE POSTS/////////////////////
-        deleteMessage(messageid) {
-            let url = `http://localhost:3000/api/posts/${ messageid }`;
+        deleteMessage(postid) {
+            let url = `http://localhost:3000/api/posts/${ postid }`;
             let options = {
                 method: "DELETE",
                 headers: {

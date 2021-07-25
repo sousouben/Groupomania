@@ -7,7 +7,7 @@ exports.createComment = (req,res)=>{
             contents: content,
             status:0,
             UserId: req.body.userId,
-            PostId: req.params.id//dans l'url
+            PostId: req.params.id
         }).then(newCom =>{
             res.status(201).json({ message: 'Votre commentaire a été envoyé',newCom});
         }).catch(error =>{

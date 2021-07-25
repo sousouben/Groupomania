@@ -35,7 +35,7 @@ export default {
                 title: "",
                 content: "",
             },
-            userId: ""
+            userId: this.$store.state.user.userId
         }
     },
     methods: {
