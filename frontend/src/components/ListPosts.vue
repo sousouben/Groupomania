@@ -4,34 +4,34 @@
      <!-- Liste des messages -->   
       <div v-for="message in messages" :key="message.id" class="bloclist">
           <div class="blocauthor">
-              <h3><i class="far fa-user-circle"></i>Pseudo: {{ message.user}}</h3>              
+              <h3><i class="far fa-user-circle"></i>Pseudo: {{ message.User.pseudo}}</h3>              
           </div>
           <div class="blocmessage">
               <h4><i class="fas fa-angle-double-right"></i>Titre: {{ message.title }} </h4>
               <h5 class="pmessage"><i class="fas fa-angle-right"></i>Message: "{{ message.content }}"</h5>
           </div>  
-          <div class="blocactions">
-                <button v-if="message.userId == userId"  
+          <div class="bloc">
+                <button v-if="message.UserId == userId"  
                 type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
           </div>
        
-        <Answers :messageId="message.id" :messageUserId="message.userId" />
+        <!--<Answers :messageId="message.id" :messageUserId="message.userId" />-->
       </div>   
   </div>
 
 </template>
 
 <script>
-import Answers from "@/components/Answers.vue";
+//import Answers from "@/components/Answers.vue";
 export default {
     name: "ListPosts",
     components: {
-        Answers
+        //Answers
     },
     data() {
         return {
             user:"",
-            userId: "",           
+            userId: "",                      
             messages: []
         }
     },
@@ -57,8 +57,8 @@ export default {
     },
     methods: {
         ///////////////////DELETE POSTS/////////////////////
-        deleteMessage() {
-            let url = `http://localhost:3000/api/${this.$store.state.user.userId}/delete`;
+        deleteMessage(id) {
+            let url = `http://localhost:3000/api/posts/${id}/delete`;
             let options = {
                 method: "DELETE",
                 headers: {
@@ -104,7 +104,7 @@ h4 {
 }
 .blocauthor i {
   color: #0c2444;
-  font-size: 1.75em;
+  font-size: 1.5rem;
   
 }
 .blocactions {
@@ -127,7 +127,7 @@ h4 {
   color: white;
 }
 .blocauthor h3 {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   margin: auto;
   padding-left: 15px;
   width: 50%;

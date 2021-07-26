@@ -56,8 +56,14 @@ const store = createStore({
     userInfos: function (state, userInfos) {
       state.userInfos = userInfos;
     },
-    userProfil: function (state, userProfil) {
-      state.userProfil = userProfil;
+    userProfil: function (state, userProfil) {     
+      state.userProfil.pseudo = userProfil.pseudo;
+      state.userProfil.email = userProfil.email;
+      state.userProfil.image = userProfil.image;
+
+        let isoDate = userProfil.createdAt;//date de la database
+        var d = new Date(isoDate);//nouvelle instance
+        state.userProfil.createdAt = d.toLocaleDateString('fr-FR');//transforme iso en string 
     },
     logout: function (state) {
       state.user = {

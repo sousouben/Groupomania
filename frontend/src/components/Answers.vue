@@ -54,7 +54,7 @@ export default {
         createAnswer() {
             let inputContent = {
                 "content": this.content,
-                "userId": this.messageId
+                "messageId": this.userId
             }
             let url = `http://localhost:3000/api/comments/${this.$store.state.user.userId}/comment`;
             let options = {

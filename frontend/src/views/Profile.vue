@@ -6,10 +6,10 @@
     <h1 class="card__title">Espace Perso</h1>
     <p class="card__subtitle">Voilà donc qui je suis...</p>
     <p>{{ user.pseudo }}<br />{{ user.email }}</p>    
-    <p>Vous êtes incrit depuis le <span>{{ user.createdAt }}</span></p>   
+    <p>Vous êtes incrit depuis le <span class="date">{{ user.createdAt}}</span></p>   
     <button @click="deleteProfil" class="accountbutton">
       Supprimez votre compte
-    </button>
+    </button>    
     <div class="form-row">
       <button @click="logout()" class="button">Déconnexion</button>
     </div>
@@ -66,7 +66,7 @@ export default {
         })
         .then(this.$router.push("/"))
         .catch((error) => console.log(error));
-    },
+    },    
   },
 };
 </script>
@@ -76,6 +76,10 @@ export default {
 .accountbutton{
   width: auto;
   margin: 10px 10px 50px 10px;
+}
+
+.date{
+  color:white;
 }
 
 </style>

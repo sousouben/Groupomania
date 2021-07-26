@@ -12,10 +12,10 @@
 <script>
 export default {
   name: "NavbarIntern",
-  methodes:{
+  methods:{
     deconnect(){
       localStorage.clear();
-      this.$router.push("/");
+      location.reload();      
     }
   }
 };
