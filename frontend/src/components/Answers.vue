@@ -33,7 +33,7 @@ export default {
     },
     mounted() {
         ///////////////////GET COMMENTS/////////////////////
-        let url = "http://localhost:3000/api/comments/" + this.messageId + "/comments";
+        let url = `http://localhost:3000/api/comments/${this.$store.state.user.userId}/comments`;
         let options = {
             method: "GET",
             headers: {
@@ -54,9 +54,9 @@ export default {
         createAnswer() {
             let inputContent = {
                 "content": this.content,
-                "messageId": this.messageId
+                "userId": this.messageId
             }
-            let url = "http://localhost:3000/api/comments/:id/comment";
+            let url = `http://localhost:3000/api/comments/${this.$store.state.user.userId}/comment`;
             let options = {
                 method: "POST",
                 body: JSON.stringify(inputContent),

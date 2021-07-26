@@ -4,11 +4,11 @@
      <!-- Liste des messages -->   
       <div v-for="message in messages" :key="message.id" class="bloclist">
           <div class="blocauthor">
-              <h3><i class="far fa-user-circle"></i> {{ message.user.pseudo }}</h3>              
+              <h3><i class="far fa-user-circle"></i>pseudo: {{ message.user}}</h3>              
           </div>
           <div class="blocmessage">
-              <h4><i class="fas fa-angle-double-right"></i>  {{ message.title }} </h4>
-              <h5 class="pmessage"><i class="fas fa-angle-right"></i>"  {{ message.content }} "</h5>
+              <h4><i class="fas fa-angle-double-right"></i>titre:{{ message.title }} </h4>
+              <h5 class="pmessage"><i class="fas fa-angle-right"></i>message:"{{ message.content }}"</h5>
           </div>  
           <div class="blocactions">
                 <button v-if="message.userId == userId"  
@@ -24,13 +24,13 @@
 <script>
 import Answers from "@/components/Answers.vue";
 export default {
-    name: "ListMessages",
+    name: "ListPosts",
     components: {
         Answers
     },
     data() {
         return {
-            pseudo: "",
+            user:"",
             userId: "",           
             messages: []
         }
@@ -57,8 +57,8 @@ export default {
     },
     methods: {
         ///////////////////DELETE POSTS/////////////////////
-        deleteMessage(messageid) {
-            let url = `http://localhost:3000/api/posts/${ messageid }`;
+        deleteMessage() {
+            let url = `http://localhost:3000/api/${this.$store.state.user.userId}/delete`;
             let options = {
                 method: "DELETE",
                 headers: {

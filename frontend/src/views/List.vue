@@ -7,19 +7,19 @@
             <p>Social Network Groupomania</p>                
           </div> 
 
-        <ListMessages/> 
+        <ListPosts/> 
      </section> 
 </template>
 
 
 <script>
 import NavbarIntern from '../components/NavbarIntern';
-import ListMessages from '../components/ListMessages';
+import ListPosts from '../components/ListPosts';
 export default {
     name: 'List',
     components: {
         NavbarIntern, 
-        ListMessages
+        ListPosts
        },
 }
 </script>
