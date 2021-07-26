@@ -4,11 +4,11 @@
      <!-- Liste des messages -->   
       <div v-for="message in messages" :key="message.id" class="bloclist">
           <div class="blocauthor">
-              <h3><i class="far fa-user-circle"></i>pseudo: {{ message.user}}</h3>              
+              <h3><i class="far fa-user-circle"></i>Pseudo: {{ message.user}}</h3>              
           </div>
           <div class="blocmessage">
-              <h4><i class="fas fa-angle-double-right"></i>titre:{{ message.title }} </h4>
-              <h5 class="pmessage"><i class="fas fa-angle-right"></i>message:"{{ message.content }}"</h5>
+              <h4><i class="fas fa-angle-double-right"></i>Titre: {{ message.title }} </h4>
+              <h5 class="pmessage"><i class="fas fa-angle-right"></i>Message: "{{ message.content }}"</h5>
           </div>  
           <div class="blocactions">
                 <button v-if="message.userId == userId"  

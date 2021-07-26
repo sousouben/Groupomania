@@ -5,10 +5,7 @@
   <div class="card">
     <h1 class="card__title">Espace Perso</h1>
     <p class="card__subtitle">Voilà donc qui je suis...</p>
-    <p>
-      {{ user.pseudo }} <br />
-      {{ user.email }}     
-    </p> 
+    <p>{{ user.pseudo }}<br />{{ user.email }}</p>    
     <p>Vous êtes incrit depuis le <span>{{ user.createdAt }}</span></p>   
     <button @click="deleteProfil" class="accountbutton">
       Supprimez votre compte
@@ -48,7 +45,7 @@ export default {
     }),
   },
   methods: {
-    logout: function () {
+    logout: function () {//DECONNEXION
       this.$store.commit("logout");
       this.$router.push("/");
     },
@@ -57,16 +54,17 @@ export default {
       let options = {
         method: "DELETE",
         headers: {
-          'Authorization': 'Bearer '+ this.$store.state.user.token
+          'Authorization': 'Bearer '+ this.$store.state.user.token,
+          'Content-type': 'application/json'
         },
       };
       fetch(url, options)
         .then((response) => {
           console.log(response);
-          localStorage.clear();
+          localStorage.clear();          
           alert("Suppression du compte confirmée ! 😢");
         })
-        .then(this.$router.push("/login"))
+        .then(this.$router.push("/"))
         .catch((error) => console.log(error));
     },
   },

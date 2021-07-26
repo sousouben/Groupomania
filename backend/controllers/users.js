@@ -140,7 +140,7 @@ exports.changeProfil = (req,res)=>{
 exports.deleteProfil = (req, res) => {
     models.User.findOne({ where: { id: req.params.id }})  
       .then((user) => {
-          User.destroy({ where: { id: req.params.id }}) 
+          models.User.destroy({ where: { id: req.params.id }}) 
                     .then(() => res.status(200).json({ message: 'Compte supprimé' }))
                     .catch(error => res.status(400).json({ error }));
                 })
