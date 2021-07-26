@@ -90,7 +90,7 @@ export default {
 }
 h4 {
   text-transform: uppercase;
-  font-size: 1.25em;
+  font-size: 1.5rem;
   text-decoration: underline;
    
 }
@@ -144,7 +144,7 @@ h4 {
   font-style: italic;
 }
 h5 i, h4 i {
-  font-size: 2em;
+  font-size: 1rem;
   color: #0c2444;
 }
 @media screen and (max-width: 450px) {

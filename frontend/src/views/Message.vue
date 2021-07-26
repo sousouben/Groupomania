@@ -80,16 +80,17 @@ form {
 	margin-top: 25px;
 }
 button {
-  width: 412px;
-    height: 83px;
+  width: auto;
     box-shadow: inset 0px 0px 0px 4px white;
     border: 6px solid #d44c5c;
     border-radius: 30px;
     padding: 6px;
     font-family: 'Press Start 2P', cursive;
-    margin: 0px 0px 25px 0px;
+    margin: auto;
+    margin-bottom: 20px;
     background-color: white;
     color: #0c2444;
+
 }
 button:hover {
   transform: scale(1.15);

@@ -20,10 +20,10 @@
       <p class="mdp">⚠️ Minimum 8 caractères dont 1 Majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial</p>
       </div>
     <div class="form-row" v-if="mode == 'login' && status == 'error_login'">
-      Adresse mail et/ou mot de passe invalide
+      <span class="error">Adresse mail et/ou mot de passe invalide</span>
     </div>
     <div class="form-row" v-if="mode == 'create' && status == 'error_create'">
-      Adresse mail déjà utilisée
+      <span class="error">Adresse mail déjà utilisée</span>
     </div>
     <div class="form-row">
       <button @click="login()" class="button" :class="{'button--disabled' : !validatedFields}" v-if="mode == 'login'">
@@ -42,12 +42,11 @@
 
 <script>
 
-import { mapState } from 'vuex'
-
+import { mapState } from 'vuex';
 import Navbar from '../components/Navbar.vue';
 export default {
   components: { Navbar },
-  name:"About",
+  name:"Login",
   data: function () {
     return {
       mode: 'login',
@@ -80,7 +79,7 @@ export default {
     },
     ...mapState(['status'])
   },
-  methods: {
+  methods: {//soit en mode login soit en mode create
     switchToCreateAccount: function () {
       this.mode = 'create';
     },
@@ -93,7 +92,7 @@ export default {
         email: this.email,
         password: this.password,
       }).then(function () {
-        self.$router.push('/login');
+        self.$router.push('/profile');
       }, function (error) {
         console.log(error);
       })
@@ -140,6 +139,10 @@ export default {
 
   .form-row__input::placeholder {
     color:#aaaaaa;
+  }
+
+  .error{
+    color: red;
   }
    
 
