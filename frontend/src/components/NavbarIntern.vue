@@ -15,7 +15,8 @@ export default {
   methods:{
     deconnect(){
       localStorage.clear();
-      location.reload();      
+      location.reload(); 
+      this.$router.push("/")  
     }
   }
 };

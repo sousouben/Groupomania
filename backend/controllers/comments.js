@@ -1,12 +1,14 @@
 const models = require('../models');
 const fs = require('fs');
+const utils = require('../utils/jwt');
 
-exports.createComment = (req,res)=>{
+exports.createComment = (req,res)=>{ 
+    let userId = utils.getUserId(req.headers.authorization)  
         let content = req.body.content;
         models.Comment.create({
             contents: content,
             status:0,
-            UserId: req.body.userId,
+            UserId: userId,
             PostId: req.params.id
         }).then(newCom =>{
             res.status(201).json({ message: 'Votre commentaire a été envoyé',newCom});
@@ -22,8 +24,8 @@ exports.getComments = (req,res)=>{
             where: { postId: req.params.id},
             include: [{ model: models.User,attributes: ['pseudo']}]
         })
-        .then(()=>{
-            res.status(200).send({ message:'les commentaires sont envoyés'});
+        .then((comments)=>{
+            res.status(200).send({ message: comments});
         }).catch(error =>{
             res.status(500).json({
                 error

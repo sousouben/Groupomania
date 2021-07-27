@@ -9,7 +9,7 @@
           <div class="blocmessage">
               <h4><i class="fas fa-angle-double-right"></i> {{ message.title }} </h4>
               <h5 class="pmessage"><i class="fas fa-angle-right"></i> "{{ message.content }}"</h5>
-          </div>  
+          </div>            
           <div class="bloc">
                 <button v-if="message.UserId == userId"  
                 type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>

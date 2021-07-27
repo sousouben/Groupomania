@@ -14,8 +14,7 @@
           <li>5. Ne compare pas ta vie à celle des autres et ne les juge pas. Tu ne connais pas leurs épreuves.</li>
           <li>6. Arrête de trop penser. Les réponses arriveront quand tu t’y attendras le moins.</li>
           <li>7. Souris :) Tu ne portes pas tous les problèmes du monde.</li>
-        </ul>        
-        <p>L'Admin veille pour maintenir la joie et la bonne humeur !  😊 </p>
+        </ul> 
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,6 +40,7 @@ li{
   
   list-style: none;  
   color:white;
+  padding-right: 1%;  
   
   }
   

@@ -20,6 +20,8 @@ export default {
   components: { Navbar },
   name:"Home"
 };
+
+
 </script>
 <style>
 h1{  

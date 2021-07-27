@@ -10,7 +10,7 @@
         <!-- Liste des réponses  -->
                 <div> 
                     <div v-for="answer in answers" :key="answer.id" class="blocanswers" >                        
-                        <p> {{ answer.content }} </p>           
+                        <p> {{ answer.contents }} </p>           
                     </div>
                 </div>
         </div>
@@ -33,7 +33,7 @@ export default {
     },
     mounted() {
         ///////////////////GET COMMENTS/////////////////////
-        let url = `http://localhost:3000/api/comments/${this.$store.state.user.userId}/comments`;
+        let url = `http://localhost:3000/api/comments/${this.messageId}/comments`;
         let options = {
             method: "GET",
             headers: {
@@ -44,7 +44,7 @@ export default {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                this.answers = data;
+                this.answers = data.message;
                 console.log(this.answers)
             })
             .catch(error => console.log(error))
@@ -52,6 +52,7 @@ export default {
     methods: {
         ///////////////////CREATE COMMENT///////////////////// 
         createAnswer() {
+            console.log(this.createAnswer);
             let inputContent = {
                 "content": this.content,
                 "postId": this.messageId               
