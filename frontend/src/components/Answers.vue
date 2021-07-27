@@ -54,9 +54,9 @@ export default {
         createAnswer() {
             let inputContent = {
                 "content": this.content,
-                "messageId": this.userId
+                "postId": this.messageId               
             }
-            let url = `http://localhost:3000/api/comments/${this.$store.state.user.userId}/comment`;
+            let url = `http://localhost:3000/api/comments/${this.messageId}/comment`;
             let options = {
                 method: "POST",
                 body: JSON.stringify(inputContent),

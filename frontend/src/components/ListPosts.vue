@@ -4,29 +4,29 @@
      <!-- Liste des messages -->   
       <div v-for="message in messages" :key="message.id" class="bloclist">
           <div class="blocauthor">
-              <h3><i class="far fa-user-circle"></i>Pseudo: {{ message.User.pseudo}}</h3>              
+              <h3><i class="far fa-user-circle"></i> {{ message.User.pseudo}}</h3>              
           </div>
           <div class="blocmessage">
-              <h4><i class="fas fa-angle-double-right"></i>Titre: {{ message.title }} </h4>
-              <h5 class="pmessage"><i class="fas fa-angle-right"></i>Message: "{{ message.content }}"</h5>
+              <h4><i class="fas fa-angle-double-right"></i> {{ message.title }} </h4>
+              <h5 class="pmessage"><i class="fas fa-angle-right"></i> "{{ message.content }}"</h5>
           </div>  
           <div class="bloc">
                 <button v-if="message.UserId == userId"  
                 type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
           </div>
        
-        <!--<Answers :messageId="message.id" :messageUserId="message.userId" />-->
+        <Answers :messageId="message.id" :messageUserId="message.userId" />
       </div>   
   </div>
 
 </template>
 
 <script>
-//import Answers from "@/components/Answers.vue";
+import Answers from "@/components/Answers.vue";
 export default {
     name: "ListPosts",
     components: {
-        //Answers
+        Answers
     },
     data() {
         return {
