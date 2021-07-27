@@ -27,19 +27,7 @@
             required
             v-model="inputMessage.content"
           ></textarea>
-        </div>
-        <div class="form-group">
-          <label class="input-group-text" id="inputFileAddon">Image :</label>
-          <input
-            name="inputFile"
-            type="file"
-            class="custom-file-input"
-            id="inputFile"
-            aria-describedby="inputFileAddon"
-            @change="onFileChange"
-          />
-        </div>
-      </form>
+        </div>        
       <button v-on:click="sendMessage">Envoyer</button>
     </div>
   </section>
@@ -62,13 +50,7 @@ export default {
       userId: this.$store.state.user.userId,
     };
   },
-  methods: {
-    /*const fd = new FormData();
-      fd.append("inputFile", this.inputMessage.image);
-      fd.append("content", this.inputMessage.content);
-      fd.append("title", this.inputMessage.title);
-      fd.append("id", this.userId);*/
-
+  methods: {    
     sendMessage() {
       let deliverMessage = {
         title: this.inputMessage.title,
@@ -97,12 +79,7 @@ export default {
         })
         .then(this.$router.push("/list"))
         .catch((error) => console.log(error));
-    },
-    onFileChange(e) {
-      console.log(e);
-      this.inputMessage.image = e.target.files[0];
-      console.log(this.inputMessage.image);
-    },
+    }
   },
 };
 </script>
