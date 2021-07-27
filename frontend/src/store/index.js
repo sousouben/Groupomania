@@ -40,7 +40,8 @@ const store = createStore({
       pseudo: '',
       email: '',
       image: '',
-      createAt: ''     
+      createAt: '',
+      isAdmin: '',    
     },
   },
   mutations: {
@@ -60,6 +61,7 @@ const store = createStore({
       state.userProfil.pseudo = userProfil.pseudo;
       state.userProfil.email = userProfil.email;
       state.userProfil.image = userProfil.image;
+      state.userProfil.isAdmin = userProfil.status;
 
         let isoDate = userProfil.createdAt;//date de la database
         var d = new Date(isoDate);//nouvelle instance

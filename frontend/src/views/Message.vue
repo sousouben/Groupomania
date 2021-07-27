@@ -4,7 +4,7 @@
 
     <div class="blocsignup">
       <h2>Exprimez-vous ! Partagez !</h2>
-      <form id="form-signup">
+      <form id="form-signup"/>
         <div class="form-group">
           <label for="title">Titre du message :</label>
           <input
