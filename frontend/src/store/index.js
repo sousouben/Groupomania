@@ -40,7 +40,7 @@ const store = createStore({
       pseudo: '',
       email: '',
       image: '',
-      createAt: ''
+      createAt: ''     
     },
   },
   mutations: {

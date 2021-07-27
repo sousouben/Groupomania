@@ -11,7 +11,7 @@
               <h5 class="pmessage"><i class="fas fa-angle-right"></i> "{{ message.content }}"</h5>
           </div>            
           <div class="bloc">
-                <button v-if="message.UserId == userId"  
+                <button v-if="message.UserId == userId" 
                 type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
           </div>
        
