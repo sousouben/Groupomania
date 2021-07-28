@@ -18,6 +18,14 @@ body, html {
   padding: 0;
   height: 100%; 
 }
+h1{  
+  color:#d44c5c;
+  text-align: center;
+}
+*{
+  font-size: 1.5rem;
+  color: black;
+}
 
 img{
   width: 100%;
@@ -62,19 +70,5 @@ header img {
   }
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  width: 72%;
-  margin: auto;
-}
-.card__title {
-  text-align:center;
-  font-weight: 800;
-}
-.card__subtitle {
-  text-align: center;
-  color:#666;
-  font-weight: 500;
-}
+
 </style>

@@ -23,7 +23,7 @@ export default {
 </script>
 <style lang="css">
 #navbar {
-    height: 70%;
+    height: 64%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -62,7 +62,7 @@ export default {
         border: 5px solid #d44c5c;
     }
     #navbar i {
-        font-size: 2em;
+        font-size: 1rem;
     }
 }
 

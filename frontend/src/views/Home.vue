@@ -24,16 +24,6 @@ export default {
 
 </script>
 <style>
-h1{  
-  color:#d44c5c;
-  text-align: center;
-}
-
-
-*{
-  font-size: 1.5rem;
-  color: black;
-}
 
 
 </style>
