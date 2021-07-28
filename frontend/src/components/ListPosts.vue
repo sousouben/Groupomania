@@ -10,7 +10,7 @@
               <h4><i class="fas fa-angle-double-right"></i> {{ message.title }} </h4>
               <h5 class="pmessage"><i class="fas fa-angle-right"></i> "{{ message.content }}"</h5>
           </div>            
-          <div class="bloc">
+          <div class="blocactions">
                 <button v-if="message.UserId == userId || this.$store.state.userProfil.isAdmin == 1" 
                 type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
           </div>
@@ -94,14 +94,7 @@ h4 {
   text-decoration: underline;
    
 }
-.blocjob {
-  display: flex;
-  flex-direction: row;
-  margin: auto;
-  width: 50%;
-  justify-content: space-around;
-  
-}
+
 .blocauthor i {
   color: #0c2444;
   font-size: 1.5rem;

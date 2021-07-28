@@ -118,31 +118,12 @@ export default {
 .mdp{
   font-size: 0.8rem;
 }
-  .form-row {
-    display: flex;
-    margin: 16px 0px;
-    gap:16px;
-    flex-wrap: wrap;
-  }
-
-  .form-row__input {
-    padding:12px;
-    border: none;
-    border-radius: 8px;
-    background:#e3e1f5;
-    font-weight: 500;
-    font-size: 16px;
-    flex:1;
-    min-width: 100px;
-    color: black;
-  }
-
-  .form-row__input::placeholder {
-    color:#aaaaaa;
-  }
-
+ 
   .error{
     color: red;
+  }
+  .form-row__input{
+    width: 95%;
   }
 
   .card {
