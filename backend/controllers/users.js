@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const models = require('../models');
-const validInput = require('../utils/ValidInput');
+const models = require('../models');//sequelize models user/post/comment
+const validInput = require('../utils/ValidInput');//regex email/password/pseudo
 require('dotenv').config();
 
 

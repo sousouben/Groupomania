@@ -22,12 +22,7 @@ module.exports = async (req, res, next) => {
                 res.status(401).json({ message: "L'utilisateur ne peut pas supprimer ce message"});
             }
         })
-        .catch((err)=> {
-            res.status(408).json({ message: "Utilisateur non trouvé", err });
-            console.log('erreur ici', err)
-        })
+        .catch((err)=> {res.status(408).json({ message: "Utilisateur non trouvé", err }); })
     })
-    .catch((err) => {
-        console.log('erreur la', err)
-    })
+    .catch((err) => {res.status(401).json({ error });})
 }
