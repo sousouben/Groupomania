@@ -10,7 +10,7 @@
         <!-- Liste des réponses  -->
                 <div> 
                     <div v-for="answer in answers" :key="answer.id" class="blocanswers" >                        
-                        <p> {{ answer.contents }} </p>           
+                        <p class="userPseudo"> {{ answer.User.pseudo + ": " }}{{ answer.contents }} </p> <br/>
                     </div>
                 </div>
         </div>
@@ -44,7 +44,7 @@ export default {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                this.answers = data.message;
+                this.answers = data.message
                 console.log(this.answers)
             })
             .catch(error => console.log(error))
@@ -107,7 +107,7 @@ h4 {
   border-radius: 30px; 
   border: 6px solid  #d44c5c;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -126,5 +126,9 @@ h4 {
 .blocanswer textarea:focus {
   border-color: white;
   box-shadow: 0px 0px 20px grey;
+}
+
+.userPseudo{
+    font-size: .7em;
 }
 </style>

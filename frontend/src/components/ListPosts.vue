@@ -141,8 +141,7 @@ h5 i, h4 i {
   color: #0c2444;
 }
 @media screen and (max-width: 450px) {
-	.bloclist {
-    width: 90%; 
+	.bloclist {    
     box-shadow: inset 0px 0px 0px 8px white;
     border: 5px solid #d44c5c;
     font-size: 0.7em;

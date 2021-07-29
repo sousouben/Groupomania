@@ -138,12 +138,23 @@ exports.changeProfil = (req,res)=>{
 }
 }
 //suppression user
-exports.deleteProfil = (req, res) => {
-    models.User.findOne({ where: { id: req.params.id }})  
-      .then((user) => {
-          models.User.destroy({ where: { id: req.params.id }}) 
-                    .then(() => res.status(200).json({ message: 'Compte supprimé' }))
-                    .catch(error => res.status(400).json({ error }));
-                })
-            .catch (error => res.status(500).json({ error }));
-            };
+exports.deleteProfil = (req, res)=>{
+    models.Comment.destroy({
+        where: { userId : req.params.id}
+    })
+    .then( 
+        models.Post.destroy({
+            where: { userId : req.params.id}
+        })
+        .then( 
+            models.User.destroy({
+                where: { id : req.params.id }
+            })
+            .then( res.status(200).json({ message: "Utilisateur supprimé!"}))
+            .catch( error => res.status(500).json({ error}))
+
+        )
+        .catch( error => res.status(500).json({ error}))
+    )
+    .catch( error => res.status(500).json({ error}))
+};

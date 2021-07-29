@@ -20,17 +20,25 @@ exports.createComment = (req,res)=>{
 };
 
 exports.getComments = (req,res)=>{
-       models.Comment.findAll({            
-            where: { postId: req.params.id},
-            include: [{ model: models.User,attributes: ['pseudo']}]
-        })
-        .then((comments)=>{
-            res.status(200).send({ message: comments});
-        }).catch(error =>{
-            res.status(500).json({
-                error
-            })
-        })    
+    models.Comment.findAll({
+         where: { postId: req.params.id},
+         include: [{ model: models.User,attributes: ['pseudo']}]
+     })
+     .then((comments)=>{
+         models.User.findOne({
+             where : { id: comments[0].UserId }
+         })
+         .then( user => {
+             res.status(200).send({ message: comments })
+         })
+         .catch( error => {
+             res.status(500).json({ error})
+         })
+     }).catch(error =>{
+         res.status(500).json({
+             error
+         })
+     })
 };
 
 exports.updateComment = (req, res)=>{

@@ -80,8 +80,7 @@ const store = createStore({
   actions: {
     login: ({commit}, userInfos) => {
       commit('setStatus', 'loading');
-      return new Promise((resolve, reject) => {
-        console.log(userInfos);
+      return new Promise((resolve, reject) => {      
         instance.post('/users/login', userInfos)
         .then(function (response) {
           commit('setStatus', '');

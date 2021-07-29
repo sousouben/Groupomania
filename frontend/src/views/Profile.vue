@@ -63,6 +63,7 @@ export default {
           console.log(response);
           localStorage.clear();          
           alert("Suppression du compte confirmée ! 😢");
+          location.reload();
         })
         .then(this.$router.push("/"))
         .catch((error) => console.log(error));
