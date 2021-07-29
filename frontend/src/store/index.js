@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import 'es6-promise/auto';
+import persisted from 'vuex-persistedstate';
 
 
 const axios = require('axios');
@@ -28,6 +29,7 @@ if (!user) {
 
 // Create a new store instance.
 const store = createStore({
+  plugins: [persisted()],
   state: {
     status: '',
     user: user,

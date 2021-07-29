@@ -95,9 +95,15 @@ exports.updatePost = (req, res)=>{
 };
 
 //supprimer un post
-exports.deletePost = (req, res)=>{
-    models.Post.destroy({
-        where: { id:req.params.id }
-    })
-    .then(()=> res.status(200).json({ message: "Post supprimé"}))
-    .catch(error => res.status(500).json({ error }))};
+exports.deletePost = (req, res)=>{    
+    models.Comment.destroy({
+        where: { postId : req.params.id}
+    }).then( 
+        models.Post.destroy({
+        where: { id : req.params.id }
+        })
+        .then(()=> res.status(200).json({ message: "Post supprimé"}))
+        .catch(error => res.status(500).json({ message: "le post n'est pas supprimer", error }))
+    )
+    .catch( error => res.status(500).json({ error}))
+};
