@@ -12,7 +12,7 @@
           </div>            
           <div class="blocactions">
                 <button v-if="message.UserId == userId || this.$store.state.userProfil.isAdmin == 1" 
-                type="button" @click="deleteMessage(message.id)" class="accountbutton">Supprimez </button>
+                type="button" @click="deleteMessage(message.id)" class="accountbutton"><i class="far fa-trash-alt"></i></button>
           </div>
        
         <Answers :messageId="message.id" :messageUserId="message.userId" />
@@ -121,9 +121,7 @@ h4 {
 }
 .blocauthor h3 {
   font-size: 1.5rem;
-  margin: auto;
-  padding-left: 15px;
-  width: 50%;
+  margin: auto;  
 }
 .blocmessage {
   width: 90%;

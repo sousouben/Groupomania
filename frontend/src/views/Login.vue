@@ -143,7 +143,7 @@ export default {
 }
 
 .card__action{
-  color: rgb(238, 150, 150);
+  color: rgb(238, 150, 150)!important;
 }
    
 

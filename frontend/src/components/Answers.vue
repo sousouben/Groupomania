@@ -3,7 +3,7 @@
             <!-- Répondre  -->
             <div class="blocanswer">
                 <textarea type="text" id="content" name="content" rows="2" class="form-control" v-model="content" 
-                placeholder="Insérer votre pseudo puis votre commentaire svp..."></textarea>
+                placeholder="Ecrire votre commentaire ici svp..."></textarea>
                 <a v-on:click="createAnswer()"><i class="far fa-paper-plane" title="Envoyer"></i></a>          
             </div>
 

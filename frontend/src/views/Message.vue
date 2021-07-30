@@ -6,7 +6,7 @@
       <h2>Exprimez-vous ! Partagez !</h2>
       <form id="form-signup"/>
         <div class="form-group">
-          <label for="title">Titre du message :</label>
+          <label for="title">Titre :</label>
           <input
             type="text"
             id="title"
