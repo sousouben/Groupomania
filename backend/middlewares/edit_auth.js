@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
     models.Post.findOne({ where : { id : req.params.id }})
     .then((post)=> {
-        let postUserId = post.userId;
+        let postUserId = post.UserId;
 
         models.User.findOne({
             where: { id: userId }

@@ -78,6 +78,10 @@ export default {
 </script>
 
 <style lang="css">
+
+.fa-trash-alt{
+  color: #021e44;
+}
 .bloclist {
   width: 70%;
   margin: auto;

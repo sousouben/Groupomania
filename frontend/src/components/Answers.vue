@@ -129,6 +129,6 @@ h4 {
 }
 
 .userPseudo{
-    font-size: .7em;
+    font-size: 1rem;
 }
 </style>
