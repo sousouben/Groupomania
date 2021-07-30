@@ -1,4 +1,9 @@
+
 -- Base de données : `dbgroupomania`
+--
+
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `comments`
 --
@@ -12,6 +17,16 @@ CREATE TABLE `comments` (
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `comments`
+--
+
+INSERT INTO `comments` (`id`, `contents`, `createdAt`, `updatedAt`, `status`, `postId`, `userId`) VALUES
+(9, 'super', '2021-07-27 18:49:34', '2021-07-27 18:49:34', 0, 26, 11),
+(10, 'genial', '2021-07-27 18:50:01', '2021-07-27 18:50:01', 0, 26, 11),
+(12, 'SUPER', '2021-07-27 18:59:25', '2021-07-27 18:59:25', 0, 26, 12),
+(17, 'oui super important!!', '2021-07-28 18:58:51', '2021-07-28 18:58:51', 0, 28, 11);
 
 -- --------------------------------------------------------
 
@@ -29,6 +44,14 @@ CREATE TABLE `posts` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `content`, `image`, `createdAt`, `updatedAt`, `status`, `userId`) VALUES
+(26, 'super', 'super genial', NULL, '2021-07-27 18:49:19', '2021-07-27 18:49:19', 0, 11),
+(28, 'PROGRAMME', 'Demain réunion important à préparer', NULL, '2021-07-28 09:52:54', '2021-07-28 09:52:54', 0, 12);
 
 -- --------------------------------------------------------
 
@@ -51,8 +74,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `pseudo`, `createdAt`, `updatedAt`, `status`) VALUES
-(3, 'soum@gmail.com', '$2b$10$dgZQsWheadjwxzK3ZwJnVeSHgDJV7N6wNFYXaRdIRy3gdyiD/F2sS', 'soumsoum', '2021-07-22 09:10:07', '2021-07-22 09:10:07', 0),
-(6, 'ta.mouatakide@gmail.com', '$2b$10$HvPurOfTa9uvzlDGiHsQc.470GuTZVVK5vtgtOK6G9bOoGp0b5n6u', 'tawtaw', '2021-07-25 08:37:24', '2021-07-25 08:37:24', 0);
+(11, 'soum@gmail.com', '$2b$10$XG6Os4dQBcbGs4/QTbpATON1oXntFKN5cExKJ70k5teeR318LRmQC', 'soumsoum', '2021-07-27 18:47:06', '2021-07-27 18:47:06', 1),
+(12, 'ta.mouatakide@gmail.com', '$2b$10$o5mjD84hnTIPqiybi6V3ku6xn9phMZdDUTiqtqgjVGZJKgnzgA.jq', 'tawtaw', '2021-07-27 18:52:35', '2021-07-27 18:52:35', 0),
+(18, 'moh@gmail.com', '$2b$10$mx1dAV.yaBXppbyQ9Mc./ukX426wYUIxA57QwwtIJPtz3UnvUZbLq', 'momo', '2021-07-30 15:19:01', '2021-07-30 15:19:01', 0);
 
 --
 -- Index pour les tables déchargées
@@ -89,19 +113,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Contraintes pour les tables déchargées
